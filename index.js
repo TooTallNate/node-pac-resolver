@@ -47,7 +47,7 @@ function generate (str) {
   return function (url, host, callback) {
     co(function* () {
       var res = yield FindProxyForURL(url, host);
-      return res;
+      return res || 'DIRECT';
     })(callback);
   };
 }
