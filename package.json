@@ -8,10 +8,10 @@
     "minimatch": "~0.2.12"
   },
   "devDependencies": {
-    "streamline": "~0.8.1"
+    "mocha": "*"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec --harmony-generators"
   },
   "repository": {
     "type": "git",
