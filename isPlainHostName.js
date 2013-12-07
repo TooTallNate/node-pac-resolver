@@ -12,10 +12,10 @@ module.exports = isPlainHostName;
  *
  * ``` js
  * isPlainHostName("www")
- *   is true.
+ *   // is true.
  *
  * isPlainHostName("www.netscape.com")
- *   is false.
+ *   // is false.
  * ```
  *
  * @param {String} host The hostname from the URL (excluding port number).
