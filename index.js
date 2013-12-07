@@ -13,6 +13,7 @@ var regenerator = require('regenerator');
  */
 
 var dnsDomainIs = require('./dnsDomainIs');
+var shExpMatch = require('./shExpMatch');
 
 /**
  * `names` array for `degenerator`.
@@ -63,7 +64,8 @@ function generate (str) {
   // the sandbox to use for the vm
   // TODO: make configurable
   var sandbox = {
-    dnsDomainIs: dnsDomainIs
+    dnsDomainIs: dnsDomainIs,
+    shExpMatch: shExpMatch
   };
 
   // for `facebook/regnerator`
