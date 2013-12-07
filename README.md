@@ -1,11 +1,12 @@
 pac-resolver
 ============
-### Generates an asynchronous resolver function from a PAC file
+### Generates an asynchronous resolver function from a [PAC file][pac-wikipedia]
 [![Build Status](https://travis-ci.org/TooTallNate/node-pac-resolver.png?branch=master)](https://travis-ci.org/TooTallNate/node-pac-resolver)
 
 
-This module accepts a JavaScript String of code, which is meant to be a PAC proxy
-file, and returns an equivalent asynchronous `FindProxyForURL()` function.
+This module accepts a JavaScript String of code, which is meant to be a
+[PAC proxy file][pac-wikipedia], and returns a generated asynchronous
+`FindProxyForURL()` function.
 
 
 Installation
@@ -59,3 +60,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[pac-file-docs]: https://web.archive.org/web/20070602031929/http://wp.netscape.com/eng/mozilla/2.0/relnotes/demo/proxy-live.html
+[pac-wikipedia]: http://wikipedia.org/wiki/Proxy_auto-config
