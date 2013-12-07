@@ -29,6 +29,7 @@ module.exports = myIpAddress;
 function myIpAddress () {
   return function (fn) {
     // TODO: make more bulletproof
+    console.error(JSON.stringify(os.networkInterfaces(), null, 2));
     var ni = os.networkInterfaces().en0;
     ni = ni.filter(function (n) { return n.family == 'IPv4'; })[0];
     if (ni) {
