@@ -13,6 +13,7 @@ var regenerator = require('regenerator');
  */
 
 var dnsDomainIs = require('./dnsDomainIs');
+var dnsDomainLevels = require('./dnsDomainLevels');
 var dnsResolve = require('./dnsResolve');
 var isInNet = require('./isInNet');
 var isPlainHostName = require('./isPlainHostName');
@@ -69,6 +70,7 @@ function generate (str) {
   // TODO: make configurable
   var sandbox = {
     dnsDomainIs: dnsDomainIs,
+    dnsDomainLevels: dnsDomainLevels,
     dnsResolve: dnsResolve,
     isInNet: isInNet,
     isPlainHostName: isPlainHostName,
