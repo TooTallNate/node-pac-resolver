@@ -28,6 +28,9 @@ module.exports = dnsResolve;
 
 function dnsResolve (host) {
   return function (fn) {
-    dns.resolve4(host, fn);
+    dns.resolve4(host, function (err, ips) {
+      if (err) return fn(err);
+      fn(null, ips && ips[0]);
+    });
   };
 }
