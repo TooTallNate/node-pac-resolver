@@ -13,7 +13,7 @@
     "mocha": "*"
   },
   "scripts": {
-    "test": "mocha --reporter spec --harmony-generators"
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
