@@ -16,6 +16,7 @@ var dnsDomainIs = require('./dnsDomainIs');
 var dnsResolve = require('./dnsResolve');
 var isInNet = require('./isInNet');
 var isPlainHostName = require('./isPlainHostName');
+var myIpAddress = require('./myIpAddress');
 var shExpMatch = require('./shExpMatch');
 
 /**
@@ -71,6 +72,7 @@ function generate (str) {
     dnsResolve: dnsResolve,
     isInNet: isInNet,
     isPlainHostName: isPlainHostName,
+    myIpAddress: myIpAddress,
     shExpMatch: shExpMatch
   };
 
