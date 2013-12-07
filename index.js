@@ -14,6 +14,7 @@ var regenerator = require('regenerator');
 
 var dnsDomainIs = require('./dnsDomainIs');
 var shExpMatch = require('./shExpMatch');
+var isPlainHostName = require('./isPlainHostName');
 
 /**
  * `names` array for `degenerator`.
@@ -65,6 +66,7 @@ function generate (str) {
   // TODO: make configurable
   var sandbox = {
     dnsDomainIs: dnsDomainIs,
+    isPlainHostName: isPlainHostName,
     shExpMatch: shExpMatch
   };
 
