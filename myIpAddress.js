@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var os = require('os');
+var net = require('net');
 
 /**
  * Module exports.
@@ -28,14 +28,14 @@ module.exports = myIpAddress;
 
 function myIpAddress () {
   return function (fn) {
-    // TODO: make more bulletproof
-    console.error(JSON.stringify(os.networkInterfaces(), null, 2));
-    var ni = os.networkInterfaces().en0;
-    ni = ni.filter(function (n) { return n.family == 'IPv4'; })[0];
-    if (ni) {
-      fn(null, ni.address);
-    } else {
-      fn(new Error('could not determine IP Address of external network interface'));
-    }
+    // XXX: find something "better" than google to connect to...
+    var socket = net.connect({ host: 'google.com', port: 80 });
+    socket.once('error', fn);
+    socket.once('connect', function () {
+      socket.removeListener('error', fn);
+      var ip = socket.address().address;
+      socket.destroy();
+      fn(null, ip);
+    });
   };
 }
