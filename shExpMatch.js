@@ -14,11 +14,13 @@ module.exports = shExpMatch;
  *
  * Examples:
  *
- *   shExpMatch("http://home.netscape.com/people/ari/index.html", "*\/ari/*")
- *     is true.
+ * ``` js
+ * shExpMatch("http://home.netscape.com/people/ari/index.html", "*\/ari/*")
+ *   // is true.
  *
- *   shExpMatch("http://home.netscape.com/people/montulli/index.html", "*\/ari/*")
- *     is false.
+ * shExpMatch("http://home.netscape.com/people/montulli/index.html", "*\/ari/*")
+ *   // is false.
+ * ```
  *
  * @param {String} str is any string to compare (e.g. the URL, or the hostname).
  * @param {String} shexp is a shell expression to compare against.
