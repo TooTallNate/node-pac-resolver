@@ -39,6 +39,9 @@ var builtIns = [
 
 module.exports = generate;
 
+// cache the `facebook/regenerator` wrapGenerator function.
+var wg = vm.runInNewContext(regenerator('', { includeRuntime: true }) + ';wrapGenerator');
+
 /**
  * Returns an asyncronous `FindProxyForURL` function from the
  * given JS string (from a PAC file).
@@ -55,13 +58,16 @@ function generate (str) {
 
   // use `facebook/regnerator` for node < v0.11 support
   // TODO: don't use regenerator if native generators are supported...
-  js = regenerator(js, { includeRuntime: true });
+  js = regenerator(js, { includeRuntime: false });
 
   // the sandbox to use for the vm
   // TODO: make configurable
   var sandbox = {
     dnsDomainIs: dnsDomainIs
   };
+
+  // for `facebook/regnerator`
+  sandbox.wrapGenerator = wg;
 
   // filename of the pac file for the vm
   // TODO: make configurable
