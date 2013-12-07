@@ -22,7 +22,28 @@ $ npm install pac-resolver
 Example
 -------
 
+Given the PAC proxy file named `proxy.pac`:
+
 ``` js
+function FindProxyForURL(url, host) {
+  if (isInNet(myIpAddress(), "10.1.10.0", "255.255.255.0"))
+    return "PROXY 1.2.3.4:8080";
+}
+```
+
+You can consume this PAC file with `pac-resolver` like so:
+
+``` js
+var fs = require('fs');
+var pac = require('pac-resolver');
+
+var FindProxyForURL = pac(fs.readFileSync('proxy.pac', 'utf8'));
+
+FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
+  if (err) throw err;
+  console.log(res);
+  // -> "DIRECT";
+});
 ```
 
 
