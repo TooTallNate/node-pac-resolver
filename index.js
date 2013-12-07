@@ -83,7 +83,7 @@ function generate (str) {
   var resolver = co(fn);
 
   return function FindProxyForURL (url, host, fn) {
-    resolver(function (err, res) {
+    resolver(url, host, function (err, res) {
       if (err) return fn(err);
       fn(null, res || 'DIRECT');
     });
