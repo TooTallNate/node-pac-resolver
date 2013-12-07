@@ -13,8 +13,10 @@ module.exports = dnsDomainIs;
  * @return {Boolean} true iff the domain of the hostname matches.
  */
 
-function* dnsDomainIs (host, domain) {
-  host = String(host);
-  domain = String(domain);
-  return host.substr(domain.length * -1) === domain;
+function dnsDomainIs (host, domain) {
+  return function (fn) {
+    host = String(host);
+    domain = String(domain);
+    fn(null, host.substr(domain.length * -1) === domain);
+  };
 }
