@@ -29,6 +29,6 @@ function dnsDomainLevels (host) {
     if (match) {
       levels = match.length;
     }
-    fn(null, host);
+    fn(null, levels);
   };
 }
