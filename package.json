@@ -6,8 +6,9 @@
   "dependencies": {
     "minimatch": "~0.2.12",
     "co": "~2.3.0",
-    "degenerator": "0.0.2",
-    "regenerator": "~0.3.1"
+    "degenerator": "~0.0.2",
+    "regenerator": "~0.3.1",
+    "netmask": "0.0.2"
   },
   "devDependencies": {
     "mocha": "*"

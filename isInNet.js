@@ -1,5 +1,12 @@
 
 /**
+ * Module dependencies.
+ */
+
+var dns = require('dns');
+var Netmask = require('netmask').Netmask;
+
+/**
  * Module exports.
  */
 
@@ -30,7 +37,12 @@ module.exports = isInNet;
 
 function isInNet (host, pattern, mask) {
   return function (fn) {
-    // TODO: implement properly...
-    fn(null, false);
+    var family = 4;
+    dns.lookup(host, family, function (err, ip) {
+      if (err) return fn(err);
+      if (!ip) ip = '127.0.0.1';
+      var netmask = new Netmask(pattern, mask);
+      fn(null, netmask.contains(ip));
+    });
   };
 }
