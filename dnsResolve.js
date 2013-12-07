@@ -28,9 +28,10 @@ module.exports = dnsResolve;
 
 function dnsResolve (host) {
   return function (fn) {
-    dns.resolve4(host, function (err, ips) {
+    var family = 4;
+    dns.lookup(host, family, function (err, ip) {
       if (err) return fn(err);
-      fn(null, ips && ips[0]);
+      fn(null, ip || '127.0.0.1');
     });
   };
 }
