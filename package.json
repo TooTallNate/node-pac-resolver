@@ -4,11 +4,10 @@
   "description": "Generates an asynchronous resolver function from a PAC file",
   "main": "index.js",
   "dependencies": {
-    "minimatch": "~0.2.12",
     "co": "~2.3.0",
+    "netmask": "0.0.2",
     "degenerator": "~0.0.2",
-    "regenerator": "~0.3.1",
-    "netmask": "0.0.2"
+    "regenerator": "~0.3.1"
   },
   "devDependencies": {
     "mocha": "*"
