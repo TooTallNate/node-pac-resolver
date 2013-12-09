@@ -14,7 +14,13 @@ describe('shExpMatch(str, shexp)', function () {
     ["http://home.example.com/people/index.html", ".*/people/.*", true],
     ["http://home.example.com/people/yourpage/index.html", ".*/mypage/.*", false],
     ["www.hotmail.com", "*hotmail.com*", true],
-    ["phishing-scam.com?email=someone@hotmail.com", "*hotmail.com*", true]
+    ["phishing-scam.com?email=someone@hotmail.com", "*hotmail.com*", true],
+    ["abcdomain.com", "(*.abcdomain.com|abcdomain.com)", true],
+    ["foo.abcdomain.com", "(*.abcdomain.com|abcdomain.com)", true],
+    ["abddomain.com", "(*.abcdomain.com|abcdomain.com)", false],
+    ["a.com", "?.com", true],
+    ["b.com", "?.com", true],
+    ["ab.com", "?.com", false]
   ];
 
   tests.forEach(function (test) {

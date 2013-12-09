@@ -29,6 +29,20 @@ module.exports = shExpMatch;
 
 function shExpMatch (str, shexp) {
   return function (fn) {
-    fn(null, false);
+    var re = toRegExp(shexp);
+    fn(null, re.test(str));
   };
+}
+
+/**
+ * Converts a "shell expression" to a JavaScript RegExp.
+ *
+ * @api private
+ */
+
+function toRegExp (str) {
+  str = String(str)
+    .replace(/\?/g, '.')
+    .replace(/\*/g, '(.*)');
+  return new RegExp('^' + str + '$');
 }
