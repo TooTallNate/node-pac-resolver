@@ -17,6 +17,7 @@ var dnsDomainLevels = require('./dnsDomainLevels');
 var dnsResolve = require('./dnsResolve');
 var isInNet = require('./isInNet');
 var isPlainHostName = require('./isPlainHostName');
+var isResolvable = require('./isResolvable');
 var localHostOrDomainIs = require('./localHostOrDomainIs');
 var myIpAddress = require('./myIpAddress');
 var shExpMatch = require('./shExpMatch');
@@ -75,6 +76,7 @@ function generate (str) {
     dnsResolve: dnsResolve,
     isInNet: isInNet,
     isPlainHostName: isPlainHostName,
+    isResolvable: isResolvable,
     localHostOrDomainIs: localHostOrDomainIs,
     myIpAddress: myIpAddress,
     shExpMatch: shExpMatch
