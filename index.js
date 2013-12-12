@@ -22,6 +22,7 @@ var isResolvable = require('./isResolvable');
 var localHostOrDomainIs = require('./localHostOrDomainIs');
 var myIpAddress = require('./myIpAddress');
 var shExpMatch = require('./shExpMatch');
+var timeRange = require('./timeRange');
 var weekdayRange = require('./weekdayRange');
 
 /**
@@ -83,6 +84,7 @@ function generate (str) {
     localHostOrDomainIs: localHostOrDomainIs,
     myIpAddress: myIpAddress,
     shExpMatch: shExpMatch,
+    timeRange: timeRange,
     weekdayRange: weekdayRange
   };
 
