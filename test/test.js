@@ -34,4 +34,41 @@ describe('FindProxyForURL', function () {
     });
   });
 
+  describe('offical docs Example #1', function () {
+    var FindProxyForURL = pac(
+      'function FindProxyForURL(url, host) {' +
+      '  if (isPlainHostName(host) ||' +
+      '      dnsDomainIs(host, ".netscape.com"))' +
+      '      return "DIRECT";' +
+      '  else' +
+      '      return "PROXY w3proxy.netscape.com:8080; DIRECT";' +
+      '}'
+    );
+
+    it('should return "DIRECT" for "localhost"', function (done) {
+      FindProxyForURL('http://localhost/hello', 'localhost', function (err, res) {
+        if (err) return done(err);
+        assert.equal('DIRECT', res);
+        done();
+      });
+    });
+
+    it('should return "DIRECT" for "foo.netscape.com"', function (done) {
+      FindProxyForURL('http://foo.netscape.com/', 'foo.netscape.com', function (err, res) {
+        if (err) return done(err);
+        assert.equal('DIRECT', res);
+        done();
+      });
+    });
+
+    it('should return "PROXY …" for "foo.netscape.com"', function (done) {
+      FindProxyForURL('http://google.com/t', 'google.com', function (err, res) {
+        if (err) return done(err);
+        assert.equal('PROXY w3proxy.netscape.com:8080; DIRECT', res);
+        done();
+      });
+    });
+
+  });
+
 });
