@@ -21,6 +21,7 @@ var isResolvable = require('./isResolvable');
 var localHostOrDomainIs = require('./localHostOrDomainIs');
 var myIpAddress = require('./myIpAddress');
 var shExpMatch = require('./shExpMatch');
+var weekdayRange = require('./weekdayRange');
 
 /**
  * `names` array for `degenerator`.
@@ -79,7 +80,8 @@ function generate (str) {
     isResolvable: isResolvable,
     localHostOrDomainIs: localHostOrDomainIs,
     myIpAddress: myIpAddress,
-    shExpMatch: shExpMatch
+    shExpMatch: shExpMatch,
+    weekdayRange: weekdayRange
   };
 
   // for `facebook/regnerator`
