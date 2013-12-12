@@ -158,7 +158,7 @@ describe('FindProxyForURL', function () {
       });
     });
 
-    it('should return "PROXY ftp…" for "http://netscape.com"', function (done) {
+    it('should return "PROXY ftp…" for "ftp://netscape.com"', function (done) {
       FindProxyForURL('ftp://netscape.com/hello', 'netscape.com', function (err, res) {
         if (err) return done(err);
         assert.equal('PROXY ftp-proxy.mydomain.com:8080', res);
@@ -166,7 +166,7 @@ describe('FindProxyForURL', function () {
       });
     });
 
-    it('should return "PROXY gopher…" for "http://netscape.com"', function (done) {
+    it('should return "PROXY gopher…" for "gopher://netscape.com"', function (done) {
       FindProxyForURL('gopher://netscape.com/hello', 'netscape.com', function (err, res) {
         if (err) return done(err);
         assert.equal('PROXY gopher-proxy.mydomain.com:8080', res);
@@ -174,7 +174,7 @@ describe('FindProxyForURL', function () {
       });
     });
 
-    it('should return "PROXY https…" for "http://netscape.com"', function (done) {
+    it('should return "PROXY https…" for "https://netscape.com"', function (done) {
       FindProxyForURL('https://netscape.com/hello', 'netscape.com', function (err, res) {
         if (err) return done(err);
         assert.equal('PROXY security-proxy.mydomain.com:8080', res);
@@ -182,8 +182,8 @@ describe('FindProxyForURL', function () {
       });
     });
 
-    it('should return "PROXY https…" for "http://netscape.com"', function (done) {
-      FindProxyForURL('https://netscape.com/hello', 'netscape.com', function (err, res) {
+    it('should return "PROXY https…" for "snews://netscape.com"', function (done) {
+      FindProxyForURL('snews://netscape.com/hello', 'netscape.com', function (err, res) {
         if (err) return done(err);
         assert.equal('PROXY security-proxy.mydomain.com:8080', res);
         done();
