@@ -12,6 +12,7 @@ var regenerator = require('regenerator');
  * Built-in PAC functions.
  */
 
+var dateRange = require('./dateRange');
 var dnsDomainIs = require('./dnsDomainIs');
 var dnsDomainLevels = require('./dnsDomainLevels');
 var dnsResolve = require('./dnsResolve');
@@ -72,6 +73,7 @@ function generate (str) {
   // the sandbox to use for the vm
   // TODO: make configurable
   var sandbox = {
+    dateRange: dateRange,
     dnsDomainIs: dnsDomainIs,
     dnsDomainLevels: dnsDomainLevels,
     dnsResolve: dnsResolve,
