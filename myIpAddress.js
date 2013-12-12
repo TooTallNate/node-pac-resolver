@@ -28,8 +28,7 @@ module.exports = myIpAddress;
 
 function myIpAddress () {
   return function (fn) {
-    // XXX: find something "better" than google to connect to...
-    var socket = net.connect({ host: 'google.com', port: 80 });
+    var socket = net.connect({ host: '8.8.8.8', port: 53 });
     socket.once('error', fn);
     socket.once('connect', function () {
       socket.removeListener('error', fn);
