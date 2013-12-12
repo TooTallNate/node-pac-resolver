@@ -28,6 +28,8 @@ module.exports = myIpAddress;
 
 function myIpAddress () {
   return function (fn) {
+    // 8.8.8.8:53 is "Google Public DNS":
+    // https://developers.google.com/speed/public-dns/
     var socket = net.connect({ host: '8.8.8.8', port: 53 });
     socket.once('error', fn);
     socket.once('connect', function () {
