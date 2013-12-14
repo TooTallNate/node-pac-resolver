@@ -174,7 +174,7 @@ describe('FindProxyForURL', function () {
       });
     });
 
-    it('should return "PROXY https…" for "https://netscape.com"', function (done) {
+    it('should return "PROXY security…" for "https://netscape.com"', function (done) {
       FindProxyForURL('https://netscape.com/hello', 'netscape.com', function (err, res) {
         if (err) return done(err);
         assert.equal('PROXY security-proxy.mydomain.com:8080', res);
@@ -182,7 +182,7 @@ describe('FindProxyForURL', function () {
       });
     });
 
-    it('should return "PROXY https…" for "snews://netscape.com"', function (done) {
+    it('should return "PROXY security…" for "snews://netscape.com"', function (done) {
       FindProxyForURL('snews://netscape.com/hello', 'netscape.com', function (err, res) {
         if (err) return done(err);
         assert.equal('PROXY security-proxy.mydomain.com:8080', res);
