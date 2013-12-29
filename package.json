@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "co": "~2.3.0",
-    "netmask": "0.0.2",
+    "netmask": "1.0.4",
     "degenerator": "~0.0.2",
     "regenerator": "~0.3.1"
   },
