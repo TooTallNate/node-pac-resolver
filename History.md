@@ -1,4 +1,21 @@
 
+0.0.2 / 2013-12-29
+==================
+
+  * package: update "netmask" to v1.0.4
+  * test: fix test names
+  * myIpAddress: add comment about Google Public DNS
+  * myIpAddress: use a slightly better host/port combo
+  * test: fix test names
+  * test: add "official docs Example #5" tests
+  * test: add "official docs Example #1b tests
+  * test: add "official docs Example #1 tests
+  * add `timeRange()` skeleton function
+  * add `dateRange()` skeleton function
+  * add `weekdayRange()` skeleton function
+  * index: add `isResolvable()` to the sandbox
+  * implement `isResolvable()`
+
 0.0.1 / 2013-12-09
 ==================
 
