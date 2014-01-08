@@ -8,7 +8,7 @@ var assert = require('assert');
 
 describe('FindProxyForURL', function () {
 
-  it('should return "DIRECT" by default', function (done) {
+  it('should return `undefined` by default', function (done) {
     var FindProxyForURL = pac(
       'function FindProxyForURL (url, host) {' +
       '  /* noop */' +
@@ -16,7 +16,7 @@ describe('FindProxyForURL', function () {
     );
     FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
       if (err) return done(err);
-      assert.equal('DIRECT', res);
+      assert.strictEqual(undefined, res);
       done();
     });
   });
