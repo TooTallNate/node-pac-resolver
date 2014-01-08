@@ -1,6 +1,6 @@
 {
   "name": "pac-resolver",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Generates an asynchronous resolver function from a PAC file",
   "main": "index.js",
   "dependencies": {

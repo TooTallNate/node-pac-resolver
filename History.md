@@ -1,4 +1,9 @@
 
+1.0.0 / 2014-01-08
+==================
+
+  * index: don't default to "DIRECT" if a falsey value is returned
+
 0.0.2 / 2013-12-29
 ==================
 
