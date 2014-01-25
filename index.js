@@ -98,8 +98,7 @@ function generate (str, opts) {
   sandbox.wrapGenerator = wg;
 
   // filename of the pac file for the vm
-  // TODO: make configurable
-  var filename = 'proxy.pac';
+  var filename = opts && opts.filename ? opts.filename : 'proxy.pac';
 
   // evaluate the JS string and extract the FindProxyForURL generator function
   var fn = vm.runInNewContext(js + ';FindProxyForURL', sandbox, filename);
