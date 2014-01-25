@@ -58,10 +58,11 @@ var wg = vm.runInNewContext(regenerator('', { includeRuntime: true }) + ';wrapGe
  * given JS string (from a PAC file).
  *
  * @param {String} str JS string
+ * @param {Object} opts optional "options" object
  * @return {Function} async resolver function
  */
 
-function generate (str) {
+function generate (str, opts) {
 
   // convert the JS FindProxyForURL function into
   // a generator function
