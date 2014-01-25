@@ -73,7 +73,6 @@ function generate (str, opts) {
   js = regenerator(js, { includeRuntime: false });
 
   // the sandbox to use for the vm
-  // TODO: make configurable
   var sandbox = {
     dateRange: dateRange,
     dnsDomainIs: dnsDomainIs,
@@ -88,6 +87,12 @@ function generate (str, opts) {
     timeRange: timeRange,
     weekdayRange: weekdayRange
   };
+  if (opts && opts.sandbox) {
+    // copy the properties from the user-provided `sandbox` onto ours
+    for (var i in opts.sandbox) {
+      sandbox[i] = opts.sandbox[i];
+    }
+  }
 
   // for `facebook/regnerator`
   sandbox.wrapGenerator = wg;
