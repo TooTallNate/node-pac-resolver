@@ -1,4 +1,12 @@
 
+1.1.0 / 2014-01-25
+==================
+
+  * index: make the `filename` configurable
+  * index: make the `sandbox` configurable
+  * index: add an `opts` argument
+  * README++
+
 1.0.0 / 2014-01-08
 ==================
 
