@@ -23,8 +23,5 @@ module.exports = isPlainHostName;
  */
 
 function isPlainHostName (host) {
-  return function (fn) {
-    var rtn = !(/\./.test(host));
-    fn(null, rtn);
-  };
+  return !(/\./.test(host));
 }

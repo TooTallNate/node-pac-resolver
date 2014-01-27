@@ -11,6 +11,8 @@ var net = require('net');
 
 module.exports = myIpAddress;
 
+myIpAddress.async = true;
+
 /**
  * Returns the IP address of the host that the Navigator is running on, as
  * a string in the dot-separated integer format.
@@ -26,17 +28,15 @@ module.exports = myIpAddress;
  * @return {String} external IP address
  */
 
-function myIpAddress () {
-  return function (fn) {
-    // 8.8.8.8:53 is "Google Public DNS":
-    // https://developers.google.com/speed/public-dns/
-    var socket = net.connect({ host: '8.8.8.8', port: 53 });
-    socket.once('error', fn);
-    socket.once('connect', function () {
-      socket.removeListener('error', fn);
-      var ip = socket.address().address;
-      socket.destroy();
-      fn(null, ip);
-    });
-  };
+function myIpAddress (fn) {
+  // 8.8.8.8:53 is "Google Public DNS":
+  // https://developers.google.com/speed/public-dns/
+  var socket = net.connect({ host: '8.8.8.8', port: 53 });
+  socket.once('error', fn);
+  socket.once('connect', function () {
+    socket.removeListener('error', fn);
+    var ip = socket.address().address;
+    socket.destroy();
+    fn(null, ip);
+  });
 }

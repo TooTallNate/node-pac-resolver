@@ -28,10 +28,8 @@ module.exports = shExpMatch;
  */
 
 function shExpMatch (str, shexp) {
-  return function (fn) {
-    var re = toRegExp(shexp);
-    fn(null, re.test(str));
-  };
+  var re = toRegExp(shexp);
+  return re.test(str);
 }
 
 /**

@@ -16,12 +16,8 @@ describe('dnsDomainLevels(host)', function () {
 
   tests.forEach(function (test) {
     var expected = test.pop();
-    it('should return `' + expected +'` for "' + test.join('", "') + '"', function (done) {
-      dnsDomainLevels.apply(null, test)(function (err, res) {
-        if (err) return done(err);
-        assert.equal(expected, res);
-        done();
-      });
+    it('should return `' + expected +'` for "' + test.join('", "') + '"', function () {
+      assert.equal(expected, dnsDomainLevels(test[0]));
     });
   });
 

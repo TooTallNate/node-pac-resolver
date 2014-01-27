@@ -18,7 +18,7 @@ describe('dnsResolve(host)', function () {
     var expected = test.pop();
     if (expected) {
       it('should resolve an IPv4 address for "' + test.join('", "') + '"', function (done) {
-        dnsResolve.apply(null, test)(function (err, res) {
+        dnsResolve(test[0], function (err, res) {
           if (err) return done(err);
           assert.equal('string', typeof res);
           assert.equal(4, isIP(res));
@@ -27,7 +27,7 @@ describe('dnsResolve(host)', function () {
       });
     } else {
       it('should throw a not found Error for "' + test.join('", "') + '"', function (done) {
-        dnsResolve.apply(null, test)(function (err, res) {
+        dnsResolve(test[0], function (err, res) {
           assert(err);
           done();
         });

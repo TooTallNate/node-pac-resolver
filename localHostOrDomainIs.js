@@ -31,18 +31,16 @@ module.exports = localHostOrDomainIs;
  */
 
 function localHostOrDomainIs (host, hostdom) {
-  return function (fn) {
-    var parts = String(host).split('.');
-    var domparts = String(hostdom).split('.');
-    var matches = true;
+  var parts = String(host).split('.');
+  var domparts = String(hostdom).split('.');
+  var matches = true;
 
-    for (var i = 0; i < parts.length; i++) {
-      if (parts[i] !== domparts[i]) {
-        matches = false;
-        break;
-      }
+  for (var i = 0; i < parts.length; i++) {
+    if (parts[i] !== domparts[i]) {
+      matches = false;
+      break;
     }
+  }
 
-    fn(null, matches);
-  };
+  return matches;
 }

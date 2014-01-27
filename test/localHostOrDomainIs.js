@@ -17,12 +17,8 @@ describe('localHostOrDomainIs(host, hostdom)', function () {
 
   tests.forEach(function (test) {
     var expected = test.pop();
-    it('should return `' + expected +'` for "' + test.join('", "') + '"', function (done) {
-      localHostOrDomainIs.apply(null, test)(function (err, res) {
-        if (err) return done(err);
-        assert.equal(expected, res);
-        done();
-      });
+    it('should return `' + expected +'` for "' + test.join('", "') + '"', function () {
+      assert.equal(expected, localHostOrDomainIs(test[0], test[1]));
     });
   });
 

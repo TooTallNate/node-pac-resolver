@@ -12,6 +12,8 @@ var Netmask = require('netmask').Netmask;
 
 module.exports = isInNet;
 
+isInNet.async = true;
+
 /**
  * True iff the IP address of the host matches the specified IP address pattern.
  *
@@ -35,14 +37,12 @@ module.exports = isInNet;
  * @return {Boolean}
  */
 
-function isInNet (host, pattern, mask) {
-  return function (fn) {
-    var family = 4;
-    dns.lookup(host, family, function (err, ip) {
-      if (err) return fn(err);
-      if (!ip) ip = '127.0.0.1';
-      var netmask = new Netmask(pattern, mask);
-      fn(null, netmask.contains(ip));
-    });
-  };
+function isInNet (host, pattern, mask, fn) {
+  var family = 4;
+  dns.lookup(host, family, function (err, ip) {
+    if (err) return fn(err);
+    if (!ip) ip = '127.0.0.1';
+    var netmask = new Netmask(pattern, mask);
+    fn(null, netmask.contains(ip));
+  });
 }

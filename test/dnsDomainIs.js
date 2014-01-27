@@ -16,12 +16,8 @@ describe('dnsDomainIs(host, domain)', function () {
 
   tests.forEach(function (test) {
     var expected = test.pop();
-    it('should return `' + expected +'` for "' + test.join('", "') + '"', function (done) {
-      dnsDomainIs.apply(null, test)(function (err, res) {
-        if (err) return done(err);
-        assert.equal(expected, res);
-        done();
-      });
+    it('should return `' + expected +'` for "' + test.join('", "') + '"', function () {
+      assert.equal(expected, dnsDomainIs(test[0], test[1]));
     });
   });
 

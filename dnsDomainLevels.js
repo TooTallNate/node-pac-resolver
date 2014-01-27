@@ -23,12 +23,10 @@ module.exports = dnsDomainLevels;
  */
 
 function dnsDomainLevels (host) {
-  return function (fn) {
-    var match = String(host).match(/\./g);
-    var levels = 0;
-    if (match) {
-      levels = match.length;
-    }
-    fn(null, levels);
-  };
+  var match = String(host).match(/\./g);
+  var levels = 0;
+  if (match) {
+    levels = match.length;
+  }
+  return levels;
 }

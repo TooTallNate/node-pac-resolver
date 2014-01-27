@@ -49,7 +49,6 @@ module.exports = weekdayRange;
  */
 
 function weekdayRange (wd1, wd2, gmt) {
-  return function (fn) {
-    fn(null, false);
-  };
+  // TODO: implement me!
+  return false;
 }

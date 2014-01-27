@@ -72,7 +72,6 @@ module.exports = dateRange;
  */
 
 function dateRange () {
-  return function (fn) {
-    fn(null, false);
-  };
+  // TODO: implement me!
+  return false;
 }

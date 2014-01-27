@@ -18,7 +18,7 @@ describe('isInNet(host, pattern, mask)', function () {
   tests.forEach(function (test) {
     var expected = test.pop();
     it('should return `' + expected +'` for "' + test.join('", "') + '"', function (done) {
-      isInNet.apply(null, test)(function (err, res) {
+      isInNet(test[0], test[1], test[2], function (err, res) {
         if (err) return done(err);
         assert.equal(expected, res);
         done();

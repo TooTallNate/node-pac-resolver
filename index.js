@@ -5,6 +5,7 @@
 
 var co = require('co');
 var vm = require('vm');
+var thunkify = require('thunkify');
 var degenerator = require('degenerator');
 var regenerator = require('regenerator');
 
@@ -26,25 +27,6 @@ var timeRange = require('./timeRange');
 var weekdayRange = require('./weekdayRange');
 
 /**
- * `names` array for `degenerator`.
- */
-
-var builtIns = [
-  'isPlainHostName',
-  'dnsDomainIs',
-  'localHostOrDomainIs',
-  'isResolvable',
-  'isInNet',
-  'dnsResolve',
-  'myIpAddress',
-  'dnsDomainLevels',
-  'shExpMatch',
-  'weekdayRange',
-  'dateRange',
-  'timeRange'
-];
-
-/**
  * Module exports.
  */
 
@@ -63,14 +45,7 @@ var wg = vm.runInNewContext(regenerator('', { includeRuntime: true }) + ';wrapGe
  */
 
 function generate (str, opts) {
-
-  // convert the JS FindProxyForURL function into
-  // a generator function
-  var js = degenerator(str, builtIns);
-
-  // use `facebook/regnerator` for node < v0.11 support
-  // TODO: don't use regenerator if native generators are supported...
-  js = regenerator(js, { includeRuntime: false });
+  var i;
 
   // the sandbox to use for the vm
   var sandbox = {
@@ -87,15 +62,35 @@ function generate (str, opts) {
     timeRange: timeRange,
     weekdayRange: weekdayRange
   };
+
+  // copy the properties from the user-provided `sandbox` onto ours
   if (opts && opts.sandbox) {
-    // copy the properties from the user-provided `sandbox` onto ours
-    for (var i in opts.sandbox) {
+    for (i in opts.sandbox) {
       sandbox[i] = opts.sandbox[i];
     }
   }
 
+  // construct the array of async function names to add `yield` calls to.
+  // user-provided async functions added to the `sandbox` must have an
+  // `async = true` property set on the function instance
+  var builtIns = [];
+  for (i in sandbox) {
+    if (sandbox[i].async) {
+      builtIns.push(i);
+      sandbox[i] = thunkify(sandbox[i]);
+    }
+  }
+  //console.log(builtIns);
+
   // for `facebook/regnerator`
   sandbox.wrapGenerator = wg;
+
+  // convert the JS FindProxyForURL function into a generator function
+  var js = degenerator(str, builtIns);
+
+  // use `facebook/regnerator` for node < v0.11 support
+  // TODO: don't use regenerator if native generators are supported...
+  js = regenerator(js, { includeRuntime: false });
 
   // filename of the pac file for the vm
   var filename = opts && opts.filename ? opts.filename : 'proxy.pac';

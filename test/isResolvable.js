@@ -16,7 +16,7 @@ describe('isResolvable(host)', function () {
   tests.forEach(function (test) {
     var expected = test.pop();
     it('should return `' + expected +'` for "' + test.join('", "') + '"', function (done) {
-      isResolvable.apply(null, test)(function (err, res) {
+      isResolvable(test[0], function (err, res) {
         if (err) return done(err);
         assert.equal(expected, res);
         done();
