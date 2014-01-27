@@ -53,10 +53,19 @@ FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
 API
 ---
 
-### pac(String jsStr) → Function
+### pac(String jsStr[, Object options]) → Function
 
 Returns an asynchronous `FindProxyForURL()` function based off of the given JS
-string PAC proxy file.
+string `jsStr` PAC proxy file. An optional `options` object may be passed in which
+respects the following options:
+
+ * `filename` - String - the filename to use in error stack traces. Defaults to `proxy.pac`.
+ * `sandbox` - Object - a map of functions to include in the sandbox of the
+ JavaScript environment where the JS code will be executed. i.e. if you wanted to
+ include the common `alert` function you could pass `alert: console.log`. For
+ async functions, you must set the `async = true` property on the function
+ instance, and the JS code will be able to invoke the function as if it were
+ synchronous.
 
 
 License
