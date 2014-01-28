@@ -73,20 +73,20 @@ function generate (str, opts) {
   // construct the array of async function names to add `yield` calls to.
   // user-provided async functions added to the `sandbox` must have an
   // `async = true` property set on the function instance
-  var builtIns = [];
+  var names = [];
   for (i in sandbox) {
     if (sandbox[i].async) {
-      builtIns.push(i);
+      names.push(i);
       sandbox[i] = thunkify(sandbox[i]);
     }
   }
-  //console.log(builtIns);
+  //console.log(names);
 
   // for `facebook/regnerator`
   sandbox.wrapGenerator = wg;
 
   // convert the JS FindProxyForURL function into a generator function
-  var js = degenerator(str, builtIns);
+  var js = degenerator(str, names);
 
   // use `facebook/regnerator` for node < v0.11 support
   // TODO: don't use regenerator if native generators are supported...
