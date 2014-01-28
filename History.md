@@ -1,4 +1,11 @@
 
+1.2.0 / 2014-01-28
+==================
+
+  * README: document the `opts` options argument
+  * README: document how to add custom functions to the sandbox
+  * refactor: only add `yield` calls to the real async functions
+
 1.1.0 / 2014-01-25
 ==================
 
