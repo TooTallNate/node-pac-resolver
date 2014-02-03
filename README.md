@@ -96,4 +96,3 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [pac-file-docs]: https://web.archive.org/web/20070602031929/http://wp.netscape.com/eng/mozilla/2.0/relnotes/demo/proxy-live.html
 [pac-wikipedia]: http://wikipedia.org/wiki/Proxy_auto-config
-
