@@ -4,7 +4,7 @@
   "description": "Generates an asynchronous resolver function from a PAC file",
   "main": "index.js",
   "dependencies": {
-    "co": "~3.0.5",
+    "co": "~3.0.6",
     "netmask": "1.0.4",
     "degenerator": "~0.0.3",
     "regenerator": "~0.4.5",
