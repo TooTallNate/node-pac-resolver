@@ -1,4 +1,13 @@
 
+1.2.2 / 2014-05-20
+==================
+
+  * package: update "regenerator" to v0.4.7
+  * package: update "thunkify" to v2.1.1
+  * package: use ~ for "netmask" version
+  * package: update "co" to v3.0.6
+  * .travis: don't test node v0.9.x
+
 1.2.1 / 2014-04-04
 ==================
 
