@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "co": "~3.0.6",
-    "netmask": "1.0.4",
+    "netmask": "~1.0.4",
     "degenerator": "~0.0.3",
     "regenerator": "~0.4.5",
     "thunkify": "0.0.1"
