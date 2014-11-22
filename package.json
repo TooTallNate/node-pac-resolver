@@ -6,7 +6,7 @@
   "dependencies": {
     "co": "~3.1.0",
     "netmask": "~1.0.4",
-    "degenerator": "~0.0.3",
+    "degenerator": "~1.0.0",
     "regenerator": "~0.4.7",
     "thunkify": "~2.1.1"
   },
