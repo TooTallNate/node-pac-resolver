@@ -1,4 +1,11 @@
 
+1.2.3 / 2014-11-22
+==================
+
+  * package: update "co" to v3.1.0
+  * package: update "degenerator" to v1.0.0
+  * test: add test case for #3
+
 1.2.2 / 2014-05-20
 ==================
 
