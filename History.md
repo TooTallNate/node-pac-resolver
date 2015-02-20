@@ -1,4 +1,12 @@
 
+1.2.5 / 2015-02-20
+==================
+
+  * travis: test node v0.12, don't test v0.8, v0.11
+  * update regenerator to newest version (#7, @RichardLitt)
+  * fix spelling errors (#4, @RichardLitt)
+  * README: use svg for Travis-CI badge
+
 1.2.4 / 2014-11-22
 ==================
 
