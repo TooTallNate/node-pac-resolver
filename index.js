@@ -82,13 +82,13 @@ function generate (str, opts) {
   }
   //console.log(names);
 
-  // for `facebook/regnerator`
+  // for `facebook/regenerator`
   sandbox.wrapGenerator = wg;
 
   // convert the JS FindProxyForURL function into a generator function
   var js = degenerator(str, names);
 
-  // use `facebook/regnerator` for node < v0.11 support
+  // use `facebook/regenerator` for node < v0.11 support
   // TODO: don't use regenerator if native generators are supported...
   js = regenerator(js, { includeRuntime: false });
 
