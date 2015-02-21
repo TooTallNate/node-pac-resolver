@@ -7,7 +7,7 @@
     "co": "~3.0.6",
     "netmask": "~1.0.4",
     "degenerator": "~1.0.0",
-    "regenerator": "~0.8.11",
+    "regenerator": "~0.8.13",
     "thunkify": "~2.1.1"
   },
   "devDependencies": {
