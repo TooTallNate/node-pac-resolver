@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var net = require('net');
+var ip = require('ip');
 
 /**
  * Module exports.
@@ -29,14 +29,5 @@ myIpAddress.async = true;
  */
 
 function myIpAddress (fn) {
-  // 8.8.8.8:53 is "Google Public DNS":
-  // https://developers.google.com/speed/public-dns/
-  var socket = net.connect({ host: '8.8.8.8', port: 53 });
-  socket.once('error', fn);
-  socket.once('connect', function () {
-    socket.removeListener('error', fn);
-    var ip = socket.address().address;
-    socket.destroy();
-    fn(null, ip);
-  });
+  return fn(null, ip.address());
 }
