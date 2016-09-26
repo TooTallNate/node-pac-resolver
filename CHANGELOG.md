@@ -1,3 +1,13 @@
+1.3.0 / 2016-09-26
+==================
+
+* [[`58a3f9e62e`](https://github.com/TooTallNate/pac-resolver/commit/58a3f9e62e)] - Implemented `timeRange` function (Utsav Kesharwani) (#15)
+* [[`a93a815f0d`](https://github.com/TooTallNate/pac-resolver/commit/a93a815f0d)] - Implemented `weekdayRange` function (Utsav Kesharwani) (#14)
+* [[`8af3e689eb`](https://github.com/TooTallNate/pac-resolver/commit/8af3e689eb)] - **test**: fix typo in test names (Nathan Rajlich)
+* [[`e0ddf63765`](https://github.com/TooTallNate/pac-resolver/commit/e0ddf63765)] - **travis**: test Node.js v0.8, v1, v2, v3, v4, v5, and v6 (Nathan Rajlich)
+* [[`e3c28eedec`](https://github.com/TooTallNate/pac-resolver/commit/e3c28eedec)] - **myIpAddress**: fallback to querying local system for IP (tehdeadone) (#10)
+* [[`40de3f9a22`](https://github.com/TooTallNate/pac-resolver/commit/40de3f9a22)] - **package**: require "degenerator" at least v1.0.2 (Nathan Rajlich)
+* [[`29009b3c38`](https://github.com/TooTallNate/pac-resolver/commit/29009b3c38)] - **package**: specify any "mocha" v2 (Nathan Rajlich)
 
 1.2.6 / 2015-02-21
 ==================
