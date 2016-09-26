@@ -34,7 +34,7 @@ describe('FindProxyForURL', function () {
     });
   });
 
-  describe('offical docs Example #1', function () {
+  describe('official docs Example #1', function () {
     var FindProxyForURL = pac(
       'function FindProxyForURL(url, host) {' +
       '  if (isPlainHostName(host) ||' +
@@ -71,7 +71,7 @@ describe('FindProxyForURL', function () {
 
   });
 
-  describe('offical docs Example #1b', function () {
+  describe('official docs Example #1b', function () {
     var FindProxyForURL = pac(
       'function FindProxyForURL(url, host)' +
       '{' +
@@ -119,7 +119,7 @@ describe('FindProxyForURL', function () {
 
   });
 
-  describe('offical docs Example #5', function () {
+  describe('official docs Example #5', function () {
     var FindProxyForURL = pac(
       'function FindProxyForURL(url, host)' +
       '{' +
