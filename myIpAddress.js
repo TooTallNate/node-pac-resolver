@@ -4,6 +4,7 @@
  */
 
 var net = require('net');
+var ip = require('ip');
 
 /**
  * Module exports.
@@ -32,7 +33,11 @@ function myIpAddress (fn) {
   // 8.8.8.8:53 is "Google Public DNS":
   // https://developers.google.com/speed/public-dns/
   var socket = net.connect({ host: '8.8.8.8', port: 53 });
-  socket.once('error', fn);
+  socket.once('error', function(err) {
+    // if we fail to access Google DNS (as in firewall blocks access), 
+    // fallback to querying IP locally
+    fn(null, ip.address());
+  });
   socket.once('connect', function () {
     socket.removeListener('error', fn);
     var ip = socket.address().address;
