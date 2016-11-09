@@ -1,3 +1,8 @@
+2.0.0 / 2016-09-26
+==================
+
+* [[`df860eb96b`](https://github.com/TooTallNate/pac-resolver/commit/df860eb96b)] - **BREAKING** remove "regenerator", drops Node.js < v1 support (Nathan Rajlich)
+
 1.3.0 / 2016-09-26
 ==================
 
