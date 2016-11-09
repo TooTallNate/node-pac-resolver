@@ -7,7 +7,6 @@ var co = require('co');
 var vm = require('vm');
 var thunkify = require('thunkify');
 var degenerator = require('degenerator');
-var regenerator = require('regenerator');
 
 /**
  * Built-in PAC functions.
@@ -31,9 +30,6 @@ var weekdayRange = require('./weekdayRange');
  */
 
 module.exports = generate;
-
-// cache the `facebook/regenerator` wrap function for the Generator object.
-var rg = vm.runInNewContext(regenerator.compile('', { includeRuntime: true }).code + ';regeneratorRuntime');
 
 /**
  * Returns an asyncronous `FindProxyForURL` function from the
@@ -82,15 +78,8 @@ function generate (str, opts) {
   }
   //console.log(names);
 
-  // for `facebook/regenerator`
-  sandbox.regeneratorRuntime = rg;
-
   // convert the JS FindProxyForURL function into a generator function
   var js = degenerator(str, names);
-
-  // use `facebook/regenerator` for node < v0.11 support
-  // TODO: don't use regenerator if native generators are supported...
-  js = regenerator.compile(js, { includeRuntime: false }).code;
 
   // filename of the pac file for the vm
   var filename = opts && opts.filename ? opts.filename : 'proxy.pac';
