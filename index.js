@@ -42,8 +42,9 @@ module.exports = generate;
  * @return {Function} async resolver function
  */
 
-function generate (str, opts) {
+function generate (_str, opts) {
   var i;
+  var str = String(_str)
 
   // the sandbox to use for the vm
   var sandbox = {
