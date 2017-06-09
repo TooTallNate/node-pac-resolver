@@ -6,6 +6,7 @@
 
 var co = require('co');
 var vm = require('vm');
+var parse = require('url').parse;
 var thunkify = require('thunkify');
 var degenerator = require('degenerator');
 
@@ -83,7 +84,7 @@ function generate (str, opts) {
   var js = degenerator(str, names);
 
   // filename of the pac file for the vm
-  var filename = opts && opts.filename ? opts.filename : 'proxy.pac';
+  var filename = (opts && opts.filename) || 'proxy.pac';
 
   // evaluate the JS string and extract the FindProxyForURL generator function
   var fn = vm.runInNewContext(js + ';FindProxyForURL', sandbox, filename);
@@ -92,9 +93,50 @@ function generate (str, opts) {
   }
 
   // return the async resolver function
-  var resolver = co(fn);
+  var resolver = co.wrap(fn);
 
-  return function FindProxyForURL (url, host, fn) {
-    resolver(url, host, fn);
+  return function FindProxyForURL (url, _host, _callback) {
+    let host
+    let callback
+    switch (arguments.length) {
+      case 3:
+        host = _host
+        callback = _callback
+        break;
+      case 2:
+        if (typeof _host === 'function') {
+          callback = _host
+        } else {
+          host = _host
+        }
+        break;
+    }
+
+    if (!host) {
+      host = parse(url).hostname;
+    }
+
+    const promise = resolver(url, host, callback);
+
+    if (typeof callback === 'function') {
+      toCallback(promise, callback)
+    } else {
+      return promise
+    }
   };
+}
+
+function toCallback (promise, callback) {
+  let called = false
+  function resolve(rtn) {
+    if (called) return
+    called = true
+    callback(null, rtn)
+  }
+  function reject(err) {
+    if (called) return
+    called = true
+    callback(err)
+  }
+  promise.then(resolve, reject)
 }
