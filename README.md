@@ -40,12 +40,11 @@ You can consume this PAC file with `pac-resolver` like so:
 var fs = require('fs');
 var pac = require('pac-resolver');
 
-var FindProxyForURL = pac(fs.readFileSync('proxy.pac', 'utf8'));
+var FindProxyForURL = pac(fs.readFileSync('proxy.pac'));
 
-FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
-  if (err) throw err;
+FindProxyForURL('http://foo.com/').then((res) => {
   console.log(res);
-    // → "DIRECT"
+  // "DIRECT"
 });
 ```
 
