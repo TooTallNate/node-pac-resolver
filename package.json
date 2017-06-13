@@ -11,7 +11,7 @@
     "thunkify": "^2.1.2"
   },
   "devDependencies": {
-    "mocha": "2"
+    "mocha": "^3.4.2"
   },
   "scripts": {
     "test": "mocha --reporter spec"
