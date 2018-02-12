@@ -33,7 +33,7 @@ function myIpAddress (fn) {
   // 8.8.8.8:53 is "Google Public DNS":
   // https://developers.google.com/speed/public-dns/
   var socket = net.connect({ host: '8.8.8.8', port: 53 });
-  socket.setTimeout(500);
+  socket.setTimeout(100);
   socket.once('timeout', function(err) {
     // if it takes too long to access Google DNS, 
     // fallback to querying IP locally
