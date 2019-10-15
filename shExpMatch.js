@@ -42,6 +42,6 @@ function toRegExp (str) {
   str = String(str)
     .replace(/\./g, '\\.')
     .replace(/\?/g, '.')
-    .replace(/\*/g, '(.*)');
+    .replace(/\*/g, '.*');
   return new RegExp('^' + str + '$');
 }

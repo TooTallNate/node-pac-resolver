@@ -1,5 +1,4 @@
+/yarn.lock
+/package-lock.json
 /node_modules
-
-# ignore local dev files
-/automattic.js
 /?.js

@@ -1,7 +1,7 @@
 pac-resolver
 ============
 ### Generates an asynchronous resolver function from a [PAC file][pac-wikipedia]
-[![Build Status](https://travis-ci.org/TooTallNate/node-pac-resolver.svg?branch=master)](https://travis-ci.org/TooTallNate/node-pac-resolver)
+[![Build Status](https://github.com/TooTallNate/node-pac-resolver/workflows/Node%20CI/badge.svg)](https://github.com/TooTallNate/node-pac-resolver/actions?workflow=Node+CI)
 
 
 This module accepts a JavaScript String of code, which is meant to be a
@@ -14,7 +14,7 @@ Installation
 
 Install with `npm`:
 
-``` bash
+```bash
 $ npm install pac-resolver
 ```
 
@@ -24,7 +24,7 @@ Example
 
 Given the PAC proxy file named `proxy.pac`:
 
-``` js
+```js
 function FindProxyForURL(url, host) {
   if (isInNet(myIpAddress(), "10.1.10.0", "255.255.255.0")) {
     return "PROXY 1.2.3.4:8080";
@@ -36,7 +36,7 @@ function FindProxyForURL(url, host) {
 
 You can consume this PAC file with `pac-resolver` like so:
 
-``` js
+```js
 var fs = require('fs');
 var pac = require('pac-resolver');
 
