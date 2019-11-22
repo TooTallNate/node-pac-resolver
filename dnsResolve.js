@@ -31,7 +31,7 @@ dnsResolve.async = true;
 function dnsResolve (host, fn) {
   var family = 4;
   dns.lookup(host, family, function (err, ip) {
-    if (err) return fn(err);
+    if (err) return fn(null, null);
     fn(null, ip || '127.0.0.1');
   });
 }

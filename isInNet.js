@@ -38,9 +38,12 @@ isInNet.async = true;
  */
 
 function isInNet (host, pattern, mask, fn) {
+  if (!host) {
+    return fn(null, false);
+  }
   var family = 4;
   dns.lookup(host, family, function (err, ip) {
-    if (err) return fn(err);
+    if (err) return fn(null, false);
     if (!ip) ip = '127.0.0.1';
     var netmask = new Netmask(pattern, mask);
     fn(null, netmask.contains(ip));
