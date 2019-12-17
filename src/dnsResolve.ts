@@ -1,17 +1,4 @@
-
-/**
- * Module dependencies.
- */
-
-var dns = require('dns');
-
-/**
- * Module exports.
- */
-
-module.exports = dnsResolve;
-
-dnsResolve.async = true;
+import { dnsLookup } from './util';
 
 /**
  * Resolves the given DNS hostname into an IP address, and returns it in the dot
@@ -28,10 +15,15 @@ dnsResolve.async = true;
  * @return {String} resolved IP address
  */
 
-function dnsResolve (host, fn) {
-  var family = 4;
-  dns.lookup(host, family, function (err, ip) {
-    if (err) return fn(null, null);
-    fn(null, ip || '127.0.0.1');
-  });
+export default async function dnsResolve(host: string): Promise<string | null> {
+	const family = 4;
+	try {
+		const r = await dnsLookup(host, { family });
+		if (typeof r === 'string') {
+			return r;
+		}
+	} catch (err) {
+		// @ignore
+	}
+	return null;
 }

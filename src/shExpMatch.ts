@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = shExpMatch;
-
 /**
  * Returns true if the string matches the specified shell
  * expression.
@@ -27,9 +20,9 @@ module.exports = shExpMatch;
  * @return {Boolean} true if the string matches the shell expression.
  */
 
-function shExpMatch (str, shexp) {
-  var re = toRegExp(shexp);
-  return re.test(str);
+export default function shExpMatch(str: string, shexp: string): boolean {
+	var re = toRegExp(shexp);
+	return re.test(str);
 }
 
 /**
@@ -38,10 +31,10 @@ function shExpMatch (str, shexp) {
  * @api private
  */
 
-function toRegExp (str) {
-  str = String(str)
-    .replace(/\./g, '\\.')
-    .replace(/\?/g, '.')
-    .replace(/\*/g, '.*');
-  return new RegExp('^' + str + '$');
+function toRegExp(str: string): RegExp {
+	str = String(str)
+		.replace(/\./g, '\\.')
+		.replace(/\?/g, '.')
+		.replace(/\*/g, '.*');
+	return new RegExp('^' + str + '$');
 }

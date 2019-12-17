@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = isPlainHostName;
-
 /**
  * True iff there is no domain name in the hostname (no dots).
  *
@@ -22,6 +15,6 @@ module.exports = isPlainHostName;
  * @return {Boolean}
  */
 
-function isPlainHostName (host) {
-  return !(/\./.test(host));
+export default function isPlainHostName(host: string): boolean {
+	return !/\./.test(host);
 }
