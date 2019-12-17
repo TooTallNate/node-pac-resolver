@@ -26,9 +26,10 @@ describe('dnsResolve(host)', function () {
         });
       });
     } else {
-      it('should throw a not found Error for "' + test.join('", "') + '"', function (done) {
+      it('should return null for if can\'t be resolved "' + test.join('", "') + '"', function (done) {
         dnsResolve(test[0], function (err, res) {
-          assert(err);
+          assert.equal(null, err);
+          assert.equal(null, res);
           done();
         });
       });
