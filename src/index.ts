@@ -30,7 +30,7 @@ import weekdayRange from './weekdayRange';
 function createPacResolver(
 	_str: string | Buffer,
 	opts: createPacResolver.PacResolverOptions = {}
-): createPacResolver.FindProxyForURL {
+) {
 	const str = Buffer.isBuffer(_str) ? _str.toString('utf8') : _str;
 
 	// the sandbox to use for the vm
@@ -61,7 +61,17 @@ function createPacResolver(
 		opts
 	);
 
-	const result: createPacResolver.FindProxyForURL = function FindProxyForURL(
+	function FindProxyForURL(url: string, host?: string): Promise<string>;
+	function FindProxyForURL(
+		url: string,
+		callback: createPacResolver.FindProxyForURLCallback
+	): void;
+	function FindProxyForURL(
+		url: string,
+		host: string,
+		callback?: createPacResolver.FindProxyForURLCallback
+	): void;
+	function FindProxyForURL(
 		url: string,
 		_host?: string | createPacResolver.FindProxyForURLCallback,
 		_callback?: createPacResolver.FindProxyForURLCallback
@@ -94,14 +104,14 @@ function createPacResolver(
 		} else {
 			return promise;
 		}
-	};
+	}
 
-	Object.defineProperty(result, 'toString', {
+	Object.defineProperty(FindProxyForURL, 'toString', {
 		value: () => resolver.toString(),
 		enumerable: false
 	});
 
-	return result;
+	return FindProxyForURL;
 }
 
 namespace createPacResolver {
@@ -155,11 +165,6 @@ namespace createPacResolver {
 	export interface PacResolverOptions extends CompileOptions {}
 	export interface FindProxyForURLCallback {
 		(err?: Error | null, result?: string): void;
-	}
-	export interface FindProxyForURL {
-		(url: string, host?: string): Promise<string> | void;
-		(url: string, callback?: FindProxyForURLCallback): void;
-		(url: string, host?: string, callback?: FindProxyForURLCallback): void;
 	}
 	export const sandbox: Readonly<Context> = Object.freeze({
 		dateRange,
