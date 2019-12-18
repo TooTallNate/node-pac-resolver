@@ -4,6 +4,9 @@
   "description": "Generates an asynchronous resolver function from a PAC file",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "degenerator": "^2.1.4",
     "ip": "^1.1.5",
