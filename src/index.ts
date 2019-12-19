@@ -19,41 +19,35 @@ import timeRange from './timeRange';
 import weekdayRange from './weekdayRange';
 
 /**
- * Returns an asyncronous `FindProxyForURL` function from the
- * given JS string (from a PAC file).
+ * Returns an asynchronous `FindProxyForURL()` function
+ * from the given JS string (from a PAC file).
  *
  * @param {String} str JS string
  * @param {Object} opts optional "options" object
  * @return {Function} async resolver function
  */
-
 function createPacResolver(
 	_str: string | Buffer,
 	opts: createPacResolver.PacResolverOptions = {}
 ) {
 	const str = Buffer.isBuffer(_str) ? _str.toString('utf8') : _str;
 
-	// the sandbox to use for the vm
+	// The sandbox to use for the `vm` context.
 	opts.sandbox = {
 		...createPacResolver.sandbox,
 		...opts.sandbox
 	};
 
-	// construct the array of async function names to add `yield` calls to.
-	// user-provided async functions added to the `sandbox` must have an
-	// `async = true` property set on the function instance
-	let names: string[] = [];
-	for (const key of Object.keys(opts.sandbox)) {
-		if (isAsyncFunction(opts.sandbox[key])) {
-			names.push(key);
-		}
-	}
+	// Construct the array of async function names to add `await` calls to.
+	const names = Object.keys(opts.sandbox).filter(k =>
+		isAsyncFunction(opts.sandbox![k])
+	);
 
 	if (!opts.filename) {
 		opts.filename = 'proxy.pac';
 	}
 
-	// Convert the JS `FindProxyForURL` function into an async function
+	// Compile the JS `FindProxyForURL()` function into an async function.
 	const resolver = compile<(url: string, host: string) => Promise<string>>(
 		str,
 		'FindProxyForURL',
@@ -69,7 +63,7 @@ function createPacResolver(
 	function FindProxyForURL(
 		url: string,
 		host: string,
-		callback?: createPacResolver.FindProxyForURLCallback
+		callback: createPacResolver.FindProxyForURLCallback
 	): void;
 	function FindProxyForURL(
 		url: string,
@@ -116,6 +110,31 @@ function createPacResolver(
 
 namespace createPacResolver {
 	export type GMT = 'GMT';
+	export type Hour =
+		| 0
+		| 1
+		| 2
+		| 3
+		| 4
+		| 5
+		| 6
+		| 7
+		| 8
+		| 9
+		| 10
+		| 11
+		| 12
+		| 13
+		| 14
+		| 15
+		| 16
+		| 17
+		| 18
+		| 19
+		| 20
+		| 21
+		| 22
+		| 23;
 	export type Day =
 		| 1
 		| 2

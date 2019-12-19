@@ -32,6 +32,8 @@ export default async function myIpAddress(): Promise<string> {
 			socket.destroy();
 			if (typeof addr === 'string') {
 				resolve(addr);
+			} else if (addr.address) {
+				resolve(addr.address);
 			} else {
 				reject(new Error('Expected a `string`'));
 			}

@@ -8,10 +8,9 @@ var { myIpAddress } = require('../').sandbox;
 
 describe('myIpAddress()', function() {
 	it('should return an IPv4 address', function(done) {
-		myIpAddress(function(err, ip) {
-			if (err) return done(err);
+		myIpAddress().then((ip) => {
 			assert.equal(4, isIP(ip));
 			done();
-		});
+		}, done);
 	});
 });

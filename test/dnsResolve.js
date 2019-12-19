@@ -17,12 +17,11 @@ describe('dnsResolve(host)', function() {
 					test.join('", "') +
 					'"',
 				function(done) {
-					dnsResolve(test[0], function(err, res) {
-						if (err) return done(err);
+					dnsResolve(test[0]).then((res) => {
 						assert.equal('string', typeof res);
 						assert.equal(4, isIP(res));
 						done();
-					});
+					}, done);
 				}
 			);
 		} else {
@@ -31,11 +30,10 @@ describe('dnsResolve(host)', function() {
 					test.join('", "') +
 					'"',
 				function(done) {
-					dnsResolve(test[0], function(err, res) {
-						assert.equal(null, err);
+					dnsResolve(test[0]).then((res) => {
 						assert.equal(null, res);
 						done();
-					});
+					}, done);
 				}
 			);
 		}
