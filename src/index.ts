@@ -202,23 +202,11 @@ namespace createPacResolver {
 }
 export = createPacResolver;
 
-function toCallback<
-	T,
-	C extends (err: Error | null, ...args: any) => any,
-	R = Parameters<C>[1]
->(promise: Promise<T>, callback: C): void {
-	let called = false;
-	function resolve(rtn: T) {
-		if (called) return;
-		called = true;
-		callback(null, rtn);
-	}
-	function reject(err: Error) {
-		if (called) return;
-		called = true;
-		callback(err);
-	}
-	promise.then(resolve, reject);
+function toCallback<T>(
+	promise: Promise<T>,
+	callback: (err: Error | null, result?: T) => void
+): void {
+	promise.then(rtn => callback(null, rtn), callback);
 }
 
 function isAsyncFunction(v: any): boolean {
