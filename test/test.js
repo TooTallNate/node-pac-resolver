@@ -1,9 +1,7 @@
-/**
- * Module dependencies.
- */
-
-var pac = require('../');
-var assert = require('assert');
+const assert = require('assert');
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const pac = require('../');
 
 describe('FindProxyForURL', function() {
 	it('should return `undefined` by default', function(done) {
@@ -286,6 +284,26 @@ describe('FindProxyForURL', function() {
 				assert.equal('DIRECT', res);
 				done();
 			});
+		});
+	});
+
+	// https://github.com/breakwa11/gfw_whitelist
+	// https://github.com/TooTallNate/node-pac-resolver/issues/20
+	describe('GitHub issue #20', function() {
+		const FindProxyForURL = pac(readFileSync(resolve(__dirname, 'fixtures/gfw_whitelist.pac')));
+
+		it('should return "DIRECT" for "https://example.cn"', function(done) {
+			FindProxyForURL('https://example.cn/').then(res => {
+				assert.equal('DIRECT;', res);
+				done();
+			}, done);
+		});
+
+		it('should return "SOCKS5 127.0.0.1:1080;" for "https://example.com"', function(done) {
+			FindProxyForURL('https://example.com/').then(res => {
+				assert.equal('SOCKS5 127.0.0.1:1080;', res);
+				done();
+			}, done);
 		});
 	});
 });
