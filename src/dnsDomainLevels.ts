@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = dnsDomainLevels;
-
 /**
  * Returns the number (integer) of DNS domain levels (number of dots) in the
  * hostname.
@@ -21,12 +14,11 @@ module.exports = dnsDomainLevels;
  * @param {String} host is the hostname from the URL.
  * @return {Number} number of domain levels
  */
-
-function dnsDomainLevels (host) {
-  var match = String(host).match(/\./g);
-  var levels = 0;
-  if (match) {
-    levels = match.length;
-  }
-  return levels;
+export default function dnsDomainLevels(host: string): number {
+	var match = String(host).match(/\./g);
+	var levels = 0;
+	if (match) {
+		levels = match.length;
+	}
+	return levels;
 }

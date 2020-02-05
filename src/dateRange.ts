@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = dateRange;
-
 /**
  * If only a single value is specified (from each category: day, month, year), the
  * function returns a true value only on days that match that specification. If
@@ -71,7 +64,7 @@ module.exports = dateRange;
  * @return {Boolean}
  */
 
-function dateRange () {
-  // TODO: implement me!
-  return false;
+export default function dateRange(): boolean {
+	// TODO: implement me!
+	return false;
 }

@@ -1,10 +1,3 @@
-
-/**
- * Module exports.
- */
-
-module.exports = localHostOrDomainIs;
-
 /**
  * Is true if the hostname matches exactly the specified hostname, or if there is
  * no domain name part in the hostname, but the unqualified hostname matches.
@@ -29,18 +22,20 @@ module.exports = localHostOrDomainIs;
  * @param {String} hostdom fully qualified hostname to match against.
  * @return {Boolean}
  */
+export default function localHostOrDomainIs(
+	host: string,
+	hostdom: string
+): boolean {
+	const parts = host.split('.');
+	const domparts = hostdom.split('.');
+	let matches = true;
 
-function localHostOrDomainIs (host, hostdom) {
-  var parts = String(host).split('.');
-  var domparts = String(hostdom).split('.');
-  var matches = true;
+	for (let i = 0; i < parts.length; i++) {
+		if (parts[i] !== domparts[i]) {
+			matches = false;
+			break;
+		}
+	}
 
-  for (var i = 0; i < parts.length; i++) {
-    if (parts[i] !== domparts[i]) {
-      matches = false;
-      break;
-    }
-  }
-
-  return matches;
+	return matches;
 }

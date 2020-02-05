@@ -1,9 +1,7 @@
+import { isGMT } from './util';
+import { GMT, Weekday } from './index';
 
-/**
- * Module exports.
- */
-
-module.exports = weekdayRange;
+const weekdays: Weekday[] = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 /**
  * Only the first parameter is mandatory. Either the second, the third, or both
@@ -41,40 +39,62 @@ module.exports = weekdayRange;
  * true Friday through Monday (note, order does matter!).
  * ```
  *
- * 
+ *
  * @param {String} wd1 one of the weekday strings.
  * @param {String} wd2 one of the weekday strings.
  * @param {String} gmt is either the string: GMT or is left out.
  * @return {Boolean}
  */
 
-const dayOrder = { "SUN": 0, "MON": 1, "TUE": 2, "WED": 3, "THU": 4, "FRI": 5, "SAT": 6 };
+export default function weekdayRange(
+	wd1: Weekday,
+	wd2?: Weekday | GMT,
+	gmt?: GMT
+): boolean {
+	let useGMTzone = false;
+	let wd1Index = -1;
+	let wd2Index = -1;
+	let wd2IsGmt = false;
 
-function weekdayRange (wd1, wd2, gmt) {
+	if (isGMT(gmt)) {
+		useGMTzone = true;
+	} else if (isGMT(wd2)) {
+		useGMTzone = true;
+		wd2IsGmt = true;
+	}
 
-  var useGMTzone = (wd2 == "GMT" || gmt == "GMT"),
-      todaysDay  = getTodaysDay(useGMTzone),
-      wd1Index   = dayOrder[wd1] || -1,
-      wd2Index   = dayOrder[wd2] || -1,
-      result     = false;
+	wd1Index = weekdays.indexOf(wd1);
 
-  if (wd2Index < 0) {
-    result = (todaysDay == wd1Index);
-  } else {
-    if (wd1Index <= wd2Index) {
-      result = valueInRange(wd1Index, todaysDay, wd2Index);
-    } else {
-      result = valueInRange(wd1Index, todaysDay, 6) || valueInRange(0, todaysDay, wd2Index);
-    }
-  }
-  return result;
+	if (!wd2IsGmt && isWeekday(wd2)) {
+		wd2Index = weekdays.indexOf(wd2);
+	}
+
+	let todaysDay = getTodaysDay(useGMTzone);
+	let result = false;
+
+	if (wd2Index < 0) {
+		result = todaysDay == wd1Index;
+	} else {
+		if (wd1Index <= wd2Index) {
+			result = valueInRange(wd1Index, todaysDay, wd2Index);
+		} else {
+			result =
+				valueInRange(wd1Index, todaysDay, 6) ||
+				valueInRange(0, todaysDay, wd2Index);
+		}
+	}
+	return result;
 }
 
-function getTodaysDay (gmt) {
-  return (gmt ? (new Date()).getUTCDay() : (new Date()).getDay());
+function getTodaysDay(gmt: boolean): number {
+	return gmt ? new Date().getUTCDay() : new Date().getDay();
 }
 
 // start <= value <= finish
-function valueInRange (start, value, finish) {
-  return (start <= value) && (value <= finish);
+function valueInRange(start: number, value: number, finish: number): boolean {
+	return start <= value && value <= finish;
+}
+
+function isWeekday(v: any): v is Weekday {
+	return weekdays.indexOf(v) !== -1;
 }
