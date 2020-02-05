@@ -13,7 +13,7 @@ describe('isResolvable(host)', function() {
 		it(
 			'should return `' + expected + '` for "' + test.join('", "') + '"',
 			function(done) {
-				isResolvable(test[0]).then((res) => {
+				isResolvable(test[0]).then(res => {
 					assert.equal(expected, res);
 					done();
 				}, done);

@@ -17,7 +17,7 @@ describe('dnsResolve(host)', function() {
 					test.join('", "') +
 					'"',
 				function(done) {
-					dnsResolve(test[0]).then((res) => {
+					dnsResolve(test[0]).then(res => {
 						assert.equal('string', typeof res);
 						assert.equal(4, isIP(res));
 						done();
@@ -30,7 +30,7 @@ describe('dnsResolve(host)', function() {
 					test.join('", "') +
 					'"',
 				function(done) {
-					dnsResolve(test[0]).then((res) => {
+					dnsResolve(test[0]).then(res => {
 						assert.equal(null, res);
 						done();
 					}, done);
