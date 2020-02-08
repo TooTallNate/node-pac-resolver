@@ -350,14 +350,5 @@ describe('FindProxyForURL', function() {
 				done();
 			}, );
 		});
-
-		/*
-		it('should return "SOCKS5 127.0.0.1:1080;" for "https://example.com"', function(done) {
-			FindProxyForURL('https://example.com/').then(res => {
-				assert.equal('SOCKS5 127.0.0.1:1080;', res);
-				done();
-			}, done);
-		});
-		*/
 	});
 });
