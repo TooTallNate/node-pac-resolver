@@ -185,6 +185,7 @@ namespace createPacResolver {
 	export interface FindProxyForURLCallback {
 		(err?: Error | null, result?: string): void;
 	}
+	export type FindProxyForURL = ReturnType<typeof createPacResolver>;
 	export const sandbox: Readonly<Context> = Object.freeze({
 		dateRange,
 		dnsDomainIs,
