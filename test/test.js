@@ -28,6 +28,21 @@ describe('FindProxyForURL', function() {
 		});
 	});
 
+	it('should not modify the passed-in options object ', function(done) {
+		function foo() {}
+		const opts = { sandbox: { foo } };
+		const FindProxyForURL = pac(
+			'function FindProxyForURL (url, host) { return typeof foo; }',
+			opts
+		);
+		assert.deepEqual(opts, { sandbox: { foo } });
+		FindProxyForURL('http://foo.com/', function(err, res) {
+			if (err) return done(err);
+			assert.deepEqual('function', res);
+			done();
+		});
+	});
+
 	describe('official docs Example #1', function() {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL(url, host) {' +

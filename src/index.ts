@@ -28,9 +28,10 @@ import weekdayRange from './weekdayRange';
  */
 function createPacResolver(
 	_str: string | Buffer,
-	opts: createPacResolver.PacResolverOptions = {}
+	_opts: createPacResolver.PacResolverOptions = {}
 ) {
 	const str = Buffer.isBuffer(_str) ? _str.toString('utf8') : _str;
+	const opts = { ..._opts };
 
 	// The sandbox to use for the `vm` context.
 	opts.sandbox = {
