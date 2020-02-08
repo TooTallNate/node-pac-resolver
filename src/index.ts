@@ -188,6 +188,7 @@ namespace createPacResolver {
 	}
 	export type FindProxyForURL = ReturnType<typeof createPacResolver>;
 	export const sandbox: Readonly<Context> = Object.freeze({
+		alert: (message: string = '') => console.log('%s', message),
 		dateRange,
 		dnsDomainIs,
 		dnsDomainLevels,
