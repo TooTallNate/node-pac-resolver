@@ -336,7 +336,7 @@ describe('FindProxyForURL', function() {
 				assert.equal(err.message, 'fail');
 				assert(err.stack.indexOf('at FindProxyForURL (proxy.pac:') !== -1);
 				done();
-			}, );
+			});
 		});
 
 		it('should include `fail.pac` in stack traces by option', function(done) {
@@ -348,7 +348,7 @@ describe('FindProxyForURL', function() {
 				assert.equal(err.message, 'fail');
 				assert(err.stack.indexOf('at FindProxyForURL (fail.pac:') !== -1);
 				done();
-			}, );
+			});
 		});
 	});
 });
