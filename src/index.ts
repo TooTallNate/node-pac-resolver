@@ -31,22 +31,21 @@ function createPacResolver(
 	_opts: createPacResolver.PacResolverOptions = {}
 ) {
 	const str = Buffer.isBuffer(_str) ? _str.toString('utf8') : _str;
-	const opts = { ..._opts };
 
 	// The sandbox to use for the `vm` context.
-	opts.sandbox = {
+	const sandbox: Context = {
 		...createPacResolver.sandbox,
-		...opts.sandbox
+		..._opts.sandbox
+	};
+
+	const opts: createPacResolver.PacResolverOptions = {
+		filename: 'proxy.pac',
+		..._opts,
+		sandbox
 	};
 
 	// Construct the array of async function names to add `await` calls to.
-	const names = Object.keys(opts.sandbox).filter(k =>
-		isAsyncFunction(opts.sandbox![k])
-	);
-
-	if (!opts.filename) {
-		opts.filename = 'proxy.pac';
-	}
+	const names = Object.keys(sandbox).filter(k => isAsyncFunction(sandbox[k]));
 
 	// Compile the JS `FindProxyForURL()` function into an async function.
 	const resolver = compile<(url: string, host: string) => Promise<string>>(

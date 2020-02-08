@@ -305,7 +305,9 @@ describe('FindProxyForURL', function() {
 	// https://github.com/breakwa11/gfw_whitelist
 	// https://github.com/TooTallNate/node-pac-resolver/issues/20
 	describe('GitHub issue #20', function() {
-		const FindProxyForURL = pac(readFileSync(resolve(__dirname, 'fixtures/gfw_whitelist.pac')));
+		const FindProxyForURL = pac(
+			readFileSync(resolve(__dirname, 'fixtures/gfw_whitelist.pac'))
+		);
 
 		it('should return "DIRECT" for "https://example.cn"', function(done) {
 			FindProxyForURL('https://example.cn/').then(res => {
@@ -319,6 +321,34 @@ describe('FindProxyForURL', function() {
 				assert.equal('SOCKS5 127.0.0.1:1080;', res);
 				done();
 			}, done);
+		});
+	});
+
+	describe('`filename` option', function() {
+		const code = String(function FindProxyForURL() {
+			throw new Error('fail');
+		});
+
+		it('should include `proxy.pac` in stack traces by default', function(done) {
+			const FindProxyForURL = pac(code);
+			FindProxyForURL('https://example.com/').catch(err => {
+				assert(err);
+				assert.equal(err.message, 'fail');
+				assert(err.stack.indexOf('at FindProxyForURL (proxy.pac:') !== -1);
+				done();
+			});
+		});
+
+		it('should include `fail.pac` in stack traces by option', function(done) {
+			const FindProxyForURL = pac(code, {
+				filename: 'fail.pac'
+			});
+			FindProxyForURL('https://example.com/').catch(err => {
+				assert(err);
+				assert.equal(err.message, 'fail');
+				assert(err.stack.indexOf('at FindProxyForURL (fail.pac:') !== -1);
+				done();
+			});
 		});
 	});
 });
