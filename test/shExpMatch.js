@@ -2,11 +2,11 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
-var { shExpMatch } = require('../').sandbox;
+let assert = require('assert');
+let { shExpMatch } = require('../').sandbox;
 
 describe('shExpMatch(str, shexp)', function() {
-	var tests = [
+	let tests = [
 		['http://home.netscape.com/people/ari/index.html', '*/ari/*', true],
 		[
 			'http://home.netscape.com/people/montulli/index.html',
@@ -30,9 +30,9 @@ describe('shExpMatch(str, shexp)', function() {
 	];
 
 	tests.forEach(function(test) {
-		var expected = test.pop();
+		let expected = test.pop();
 		it(
-			'should return `' + expected + '` for "' + test.join('", "') + '"',
+			`should return \`${  expected  }\` for "${  test.join('", "')  }"`,
 			function() {
 				assert.equal(expected, shExpMatch(test[0], test[1]));
 			}

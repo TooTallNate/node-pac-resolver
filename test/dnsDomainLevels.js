@@ -2,16 +2,16 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
-var { dnsDomainLevels } = require('../').sandbox;
+let assert = require('assert');
+let { dnsDomainLevels } = require('../').sandbox;
 
 describe('dnsDomainLevels(host)', function() {
-	var tests = [['www', 0], ['www.netscape', 1], ['www.netscape.com', 2]];
+	let tests = [['www', 0], ['www.netscape', 1], ['www.netscape.com', 2]];
 
 	tests.forEach(function(test) {
-		var expected = test.pop();
+		let expected = test.pop();
 		it(
-			'should return `' + expected + '` for "' + test.join('", "') + '"',
+			`should return \`${  expected  }\` for "${  test.join('", "')  }"`,
 			function() {
 				assert.equal(expected, dnsDomainLevels(test[0]));
 			}

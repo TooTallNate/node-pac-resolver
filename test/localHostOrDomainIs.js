@@ -2,11 +2,11 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
+let assert = require('assert');
 const { localHostOrDomainIs } = require('../').sandbox;
 
 describe('localHostOrDomainIs(host, hostdom)', function() {
-	var tests = [
+	let tests = [
 		['www.netscape.com', 'www.netscape.com', true],
 		['www', 'www.netscape.com', true],
 		['www.mcom.com', 'www.netscape.com', false],
@@ -14,9 +14,9 @@ describe('localHostOrDomainIs(host, hostdom)', function() {
 	];
 
 	tests.forEach(function(test) {
-		var expected = test.pop();
+		let expected = test.pop();
 		it(
-			'should return `' + expected + '` for "' + test.join('", "') + '"',
+			`should return \`${  expected  }\` for "${  test.join('", "')  }"`,
 			function() {
 				assert.equal(expected, localHostOrDomainIs(test[0], test[1]));
 			}
