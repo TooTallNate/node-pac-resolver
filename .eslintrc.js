@@ -53,6 +53,10 @@ module.exports = {
 		camelcase: 0,
 		'no-unused-vars': 0, // in favor of '@typescript-eslint/no-unused-vars'
 		// 'indent': 0                // in favor of '@typescript-eslint/indent'
+		'semi': [
+			'error',
+			'always'
+		],
 		'@typescript-eslint/no-unused-vars': 'warn',
 		// '@typescript-eslint/indent': ['error', 2]        // this might conflict with a lot ongoing changes
 		'@typescript-eslint/no-array-constructor': 'error',
