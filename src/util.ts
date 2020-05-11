@@ -1,17 +1,16 @@
-import { Resolver, LookupAddress, LookupOptions, lookup } from 'dns';
+import { resolve4, setServers, getServers, LookupAddress, LookupOptions, lookup } from 'dns';
 import { GMT } from './index';
 
 export function resolveDNS(
 	host: string
 ): Promise<string[]> {
-	const resolver = new Resolver();
 	if(process.env.CUSTOM_DNS_SERVER) {
-		let currentDNSservers = resolver.getServers();
-		resolver.setServers([process.env.CUSTOM_DNS_SERVER, ...currentDNSservers]);
+		let currentDNSservers = getServers();
+		setServers([process.env.CUSTOM_DNS_SERVER, ...currentDNSservers]);
 	}
 
 	return new Promise((resolve, reject) => {
-		resolver.resolve4(host, (err, res) => {
+		resolve4(host, (err, res) => {
 			if (err) {
 				reject(err);
 			} else {

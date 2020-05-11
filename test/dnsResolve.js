@@ -18,6 +18,7 @@ describe('dnsResolve(host)', function() {
 					}"`,
 				function(done) {
 					dnsResolve(test[0]).then(res => {
+						console.log(process.version);
 						assert.equal('string', typeof res);
 						assert.equal(4, isIP(res));
 						done();

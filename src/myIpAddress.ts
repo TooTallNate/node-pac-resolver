@@ -1,6 +1,7 @@
 import ip from 'ip';
 import net from 'net';
-import {Resolver} from 'dns';
+import {getServers} from 'dns';
+
 
 /**
  * Returns the IP address of the host that the Navigator is running on, as
@@ -17,8 +18,8 @@ import {Resolver} from 'dns';
  * @return {String} external IP address
  */
 export default async function myIpAddress(): Promise<string> {
-	const resolver = new Resolver();
-	const servers = resolver.getServers();
+	const servers = getServers();
+
 
 	// get configured dns servers otherwise set 8.8.8.8:53 is "Google Public DNS":
 	// https://developers.google.com/speed/public-dns/
