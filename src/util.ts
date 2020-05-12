@@ -4,11 +4,6 @@ import { GMT } from './index';
 export function resolveDNS(
 	host: string
 ): Promise<string[]> {
-	if(process.env.CUSTOM_DNS_SERVER) {
-		let currentDNSservers = getServers();
-		setServers([process.env.CUSTOM_DNS_SERVER, ...currentDNSservers]);
-	}
-
 	return new Promise((resolve, reject) => {
 		resolve4(host, (err, res) => {
 			if (err) {
@@ -18,6 +13,13 @@ export function resolveDNS(
 			}
 		});
 	});
+}
+
+export function setCustomDNSServer(dnsServer: string) {
+	if(dnsServer) {
+		let currentDNSservers = getServers();
+		setServers([dnsServer, ...currentDNSservers]);
+	}
 }
 
 export function lookupDNS(
