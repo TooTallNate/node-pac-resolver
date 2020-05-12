@@ -23,7 +23,7 @@ export default async function myIpAddress(): Promise<string> {
 
 	// get configured dns servers otherwise set 8.8.8.8:53 is "Google Public DNS":
 	// https://developers.google.com/speed/public-dns/
-	const dnsServerHost = servers ? servers[0] : '8.8.8.8';
+	const dnsServerHost = servers && servers.length > 0 ? servers[0] : '8.8.8.8';
 
 	return new Promise((resolve, reject) => {
 
