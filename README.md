@@ -52,11 +52,11 @@ FindProxyForURL('http://foo.com/').then((res) => {
 API
 ---
 
-### pac(String jsStr[, Object options]) → Function
+### pac(String pacFileContents[, Object options]) → Function
 
 Returns an asynchronous `FindProxyForURL()` function based off of the given JS
-string `jsStr` PAC proxy file. An optional `options` object may be passed in which
-respects the following options:
+string `pacFileContents` PAC proxy file. An optional `options` object may be
+passed in which respects the following options:
 
  * `filename` - String - the filename to use in error stack traces. Defaults to `proxy.pac`.
  * `sandbox` - Object - a map of functions to include in the sandbox of the
