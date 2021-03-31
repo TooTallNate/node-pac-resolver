@@ -2,14 +2,15 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
+let assert = require('assert');
 const { timeRange } = require('../').sandbox;
-var vanillaGetHours = Date.prototype.getHours;
-var vanillaGetMinutes = Date.prototype.getMinutes;
-var vanillaGetSeconds = Date.prototype.getSeconds;
-var vanillaGetUTCHours = Date.prototype.getUTCHours;
-var vanillaGetUTCMinutes = Date.prototype.getUTCMinutes;
-var vanillaGetUTCSeconds = Date.prototype.getUTCSeconds;
+
+let vanillaGetHours = Date.prototype.getHours;
+let vanillaGetMinutes = Date.prototype.getMinutes;
+let vanillaGetSeconds = Date.prototype.getSeconds;
+let vanillaGetUTCHours = Date.prototype.getUTCHours;
+let vanillaGetUTCMinutes = Date.prototype.getUTCMinutes;
+let vanillaGetUTCSeconds = Date.prototype.getUTCSeconds;
 
 describe('hooks', function() {
 	before(function() {
@@ -44,7 +45,7 @@ describe('hooks', function() {
 	});
 
 	describe('timeRange()', function() {
-		var tests = [
+		let tests = [
 			[1, true],
 			[1, 2, true],
 			[0, 0, 0, 30, false],
@@ -54,13 +55,13 @@ describe('hooks', function() {
 		];
 
 		tests.forEach(function(test) {
-			var expected = test.pop();
+			let expected = test.pop();
 			it(
-				'should return `' +
-					expected +
-					'` for "' +
-					test.join('", "') +
-					'"',
+				`should return \`${
+					expected
+					}\` for "${
+					test.join('", "')
+					}"`,
 				function() {
 					assert.equal(expected, timeRange.apply(this, test));
 				}

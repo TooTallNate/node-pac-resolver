@@ -5,7 +5,7 @@ const pac = require('../');
 
 describe('FindProxyForURL', function() {
 	it('should return `undefined` by default', function(done) {
-		var FindProxyForURL = pac(
+		let FindProxyForURL = pac(
 			'function FindProxyForURL (url, host) {' + '  /* noop */' + '}'
 		);
 		FindProxyForURL('http://foo.com/', 'foo.com', function(err, res) {
@@ -16,7 +16,7 @@ describe('FindProxyForURL', function() {
 	});
 
 	it('should return the value that gets returned', function(done) {
-		var FindProxyForURL = pac(
+		let FindProxyForURL = pac(
 			'function FindProxyForURL (url, host) {' +
 				'  return { foo: "bar" };' +
 				'}'
@@ -44,7 +44,7 @@ describe('FindProxyForURL', function() {
 	});
 
 	describe('official docs Example #1', function() {
-		var FindProxyForURL = pac(
+		let FindProxyForURL = pac(
 			'function FindProxyForURL(url, host) {' +
 				'  if (isPlainHostName(host) ||' +
 				'      dnsDomainIs(host, ".netscape.com"))' +
@@ -90,7 +90,7 @@ describe('FindProxyForURL', function() {
 	});
 
 	describe('official docs Example #1b', function() {
-		var FindProxyForURL = pac(
+		let FindProxyForURL = pac(
 			'function FindProxyForURL(url, host)' +
 				'{' +
 				'    if ((isPlainHostName(host) ||' +
@@ -158,7 +158,7 @@ describe('FindProxyForURL', function() {
 	});
 
 	describe('official docs Example #5', function() {
-		var FindProxyForURL = pac(
+		let FindProxyForURL = pac(
 			'function FindProxyForURL(url, host)' +
 				'{' +
 				'    if (url.substring(0, 5) == "http:") {' +
@@ -254,7 +254,7 @@ describe('FindProxyForURL', function() {
 	});
 
 	describe('GitHub issue #3', function() {
-		var FindProxyForURL = pac(
+		let FindProxyForURL = pac(
 			'function FindProxyForURL(url, host) {\n' +
 				'    if (isHostInAnySubnet(host, ["10.1.2.0", "10.1.3.0"], "255.255.255.0")) {\n' +
 				'        return "HTTPS proxy.example.com";\n' +
@@ -270,7 +270,7 @@ describe('FindProxyForURL', function() {
 				'\n' +
 				'// Checks if the single host is within a list of subnets using the single mask.\n' +
 				'function isHostInAnySubnet(host, subnets, mask) {\n' +
-				'    var subnets_length = subnets.length;\n' +
+				'    let subnets_length = subnets.length;\n' +
 				'    for (i = 0; i < subnets_length; i++) {\n' +
 				'        if (isInNet(host, subnets[i], mask)) {\n' +
 				'            return true;\n' +

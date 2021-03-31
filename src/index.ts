@@ -1,6 +1,7 @@
 import { parse } from 'url';
 import { Context } from 'vm';
 import { CompileOptions, compile } from 'degenerator';
+import { setCustomDNSServer } from './util';
 
 /**
  * Built-in PAC functions.
@@ -28,7 +29,7 @@ import weekdayRange from './weekdayRange';
  */
 function createPacResolver(
 	_str: string | Buffer,
-	_opts: createPacResolver.PacResolverOptions = {}
+	_opts: createPacResolver.PacResolverOptions = { dnsServer: process.env.CUSTOM_DNS_SERVER ? process.env.CUSTOM_DNS_SERVER : '' }
 ) {
 	const str = Buffer.isBuffer(_str) ? _str.toString('utf8') : _str;
 
@@ -43,6 +44,8 @@ function createPacResolver(
 		..._opts,
 		sandbox
 	};
+
+	setCustomDNSServer(opts.dnsServer);
 
 	// Construct the array of async function names to add `await` calls to.
 	const names = Object.keys(sandbox).filter(k => isAsyncFunction(sandbox[k]));
@@ -181,7 +184,7 @@ namespace createPacResolver {
 		| 'OCT'
 		| 'NOV'
 		| 'DEC';
-	export interface PacResolverOptions extends CompileOptions {}
+	export interface PacResolverOptions extends CompileOptions { dnsServer: string}
 	export interface FindProxyForURLCallback {
 		(err?: Error | null, result?: string): void;
 	}

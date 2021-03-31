@@ -3,7 +3,7 @@
  */
 
 import { Netmask } from 'netmask';
-import { dnsLookup } from './util';
+import { lookupDNS } from './util';
 
 /**
  * True iff the IP address of the host matches the specified IP address pattern.
@@ -35,7 +35,7 @@ export default async function isInNet(
 ): Promise<boolean> {
 	const family = 4;
 	try {
-		const ip = await dnsLookup(host, { family });
+		const ip = await lookupDNS(host, { family });
 		if (typeof ip === 'string') {
 			const netmask = new Netmask(pattern, mask);
 			return netmask.contains(ip);

@@ -1,4 +1,4 @@
-import { dnsLookup } from './util';
+import { resolveDNS } from './util';
 
 /**
  * Resolves the given DNS hostname into an IP address, and returns it in the dot
@@ -16,11 +16,10 @@ import { dnsLookup } from './util';
  */
 
 export default async function dnsResolve(host: string): Promise<string | null> {
-	const family = 4;
 	try {
-		const r = await dnsLookup(host, { family });
-		if (typeof r === 'string') {
-			return r;
+		const r = await resolveDNS(host);
+		if (Array.isArray(r) && r.length > 0) {
+			return r[0];
 		}
 	} catch (err) {
 		// @ignore

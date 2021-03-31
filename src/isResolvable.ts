@@ -1,4 +1,4 @@
-import { dnsLookup } from './util';
+import { resolveDNS } from './util';
 
 /**
  * Tries to resolve the hostname. Returns true if succeeds.
@@ -8,9 +8,8 @@ import { dnsLookup } from './util';
  */
 
 export default async function isResolvable(host: string): Promise<boolean> {
-	const family = 4;
 	try {
-		if (await dnsLookup(host, { family })) {
+		if (await resolveDNS(host)) {
 			return true;
 		}
 	} catch (err) {

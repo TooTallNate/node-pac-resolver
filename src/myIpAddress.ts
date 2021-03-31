@@ -1,5 +1,7 @@
 import ip from 'ip';
 import net from 'net';
+import {getServers} from 'dns';
+
 
 /**
  * Returns the IP address of the host that the Navigator is running on, as
@@ -16,10 +18,16 @@ import net from 'net';
  * @return {String} external IP address
  */
 export default async function myIpAddress(): Promise<string> {
+	const servers = getServers();
+
+
+	// get configured dns servers otherwise set 8.8.8.8:53 is "Google Public DNS":
+	// https://developers.google.com/speed/public-dns/
+	const dnsServerHost = servers && servers.length > 0 ? servers[0] : '8.8.8.8';
+
 	return new Promise((resolve, reject) => {
-		// 8.8.8.8:53 is "Google Public DNS":
-		// https://developers.google.com/speed/public-dns/
-		const socket = net.connect({ host: '8.8.8.8', port: 53 });
+
+		const socket = net.connect({ host: dnsServerHost, port: 53 });
 		const onError = (err: Error) => {
 			// if we fail to access Google DNS (as in firewall blocks access),
 			// fallback to querying IP locally
