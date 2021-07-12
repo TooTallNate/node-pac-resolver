@@ -5,18 +5,18 @@
 var assert = require('assert');
 const { dnsDomainIs } = require('../').sandbox;
 
-describe('dnsDomainIs(host, domain)', function() {
+describe('dnsDomainIs(host, domain)', function () {
 	var tests = [
 		['www.netscape.com', '.netscape.com', true],
 		['www', '.netscape.com', false],
-		['www.mcom.com', '.netscape.com', false]
+		['www.mcom.com', '.netscape.com', false],
 	];
 
-	tests.forEach(function(test) {
+	tests.forEach(function (test) {
 		var expected = test.pop();
 		it(
 			'should return `' + expected + '` for "' + test.join('", "') + '"',
-			function() {
+			function () {
 				assert.equal(expected, dnsDomainIs(test[0], test[1]));
 			}
 		);

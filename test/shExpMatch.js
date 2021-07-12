@@ -5,18 +5,18 @@
 var assert = require('assert');
 var { shExpMatch } = require('../').sandbox;
 
-describe('shExpMatch(str, shexp)', function() {
+describe('shExpMatch(str, shexp)', function () {
 	var tests = [
 		['http://home.netscape.com/people/ari/index.html', '*/ari/*', true],
 		[
 			'http://home.netscape.com/people/montulli/index.html',
 			'*/ari/*',
-			false
+			false,
 		],
 		[
 			'http://home.example.com/people/yourpage/index.html',
 			'.*/mypage/.*',
-			false
+			false,
 		],
 		['www.hotmail.com', '*hotmail.com*', true],
 		['phishing-scam.com?email=someone@hotmail.com', '*hotmail.com*', true],
@@ -26,14 +26,14 @@ describe('shExpMatch(str, shexp)', function() {
 		['abcdomain.com', '*.n.com', false],
 		['a.com', '?.com', true],
 		['b.com', '?.com', true],
-		['ab.com', '?.com', false]
+		['ab.com', '?.com', false],
 	];
 
-	tests.forEach(function(test) {
+	tests.forEach(function (test) {
 		var expected = test.pop();
 		it(
 			'should return `' + expected + '` for "' + test.join('", "') + '"',
-			function() {
+			function () {
 				assert.equal(expected, shExpMatch(test[0], test[1]));
 			}
 		);

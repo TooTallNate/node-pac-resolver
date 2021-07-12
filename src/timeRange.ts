@@ -52,7 +52,7 @@ export default function timeRange(): boolean {
 
 	var noOfArgs = args.length,
 		result = false,
-		numericArgs = args.map(function(n) {
+		numericArgs = args.map(function (n) {
 			return parseInt(n);
 		});
 

@@ -35,17 +35,19 @@ function createPacResolver(
 	// The sandbox to use for the `vm` context.
 	const sandbox: Context = {
 		...createPacResolver.sandbox,
-		..._opts.sandbox
+		..._opts.sandbox,
 	};
 
 	const opts: createPacResolver.PacResolverOptions = {
 		filename: 'proxy.pac',
 		..._opts,
-		sandbox
+		sandbox,
 	};
 
 	// Construct the array of async function names to add `await` calls to.
-	const names = Object.keys(sandbox).filter(k => isAsyncFunction(sandbox[k]));
+	const names = Object.keys(sandbox).filter((k) =>
+		isAsyncFunction(sandbox[k])
+	);
 
 	// Compile the JS `FindProxyForURL()` function into an async function.
 	const resolver = compile<string, [url: string, host: string]>(
@@ -102,7 +104,7 @@ function createPacResolver(
 
 	Object.defineProperty(FindProxyForURL, 'toString', {
 		value: () => resolver.toString(),
-		enumerable: false
+		enumerable: false,
 	});
 
 	return FindProxyForURL;
@@ -199,7 +201,7 @@ namespace createPacResolver {
 		myIpAddress,
 		shExpMatch,
 		timeRange,
-		weekdayRange
+		weekdayRange,
 	});
 }
 export = createPacResolver;
@@ -208,7 +210,7 @@ function toCallback<T>(
 	promise: Promise<T>,
 	callback: (err: Error | null, result?: T) => void
 ): void {
-	promise.then(rtn => callback(null, rtn), callback);
+	promise.then((rtn) => callback(null, rtn), callback);
 }
 
 function isAsyncFunction(v: any): boolean {

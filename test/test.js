@@ -3,32 +3,32 @@ const { resolve } = require('path');
 const { readFileSync } = require('fs');
 const pac = require('../');
 
-describe('FindProxyForURL', function() {
-	it('should return `undefined` by default', function(done) {
+describe('FindProxyForURL', function () {
+	it('should return `undefined` by default', function (done) {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL (url, host) {' + '  /* noop */' + '}'
 		);
-		FindProxyForURL('http://foo.com/', 'foo.com', function(err, res) {
+		FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
 			if (err) return done(err);
 			assert.strictEqual(undefined, res);
 			done();
 		});
 	});
 
-	it('should return the value that gets returned', function(done) {
+	it('should return the value that gets returned', function (done) {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL (url, host) {' +
 				'  return { foo: "bar" };' +
 				'}'
 		);
-		FindProxyForURL('http://foo.com/', 'foo.com', function(err, res) {
+		FindProxyForURL('http://foo.com/', 'foo.com', function (err, res) {
 			if (err) return done(err);
 			assert.deepEqual({ foo: 'bar' }, res);
 			done();
 		});
 	});
 
-	it('should not modify the passed-in options object', function(done) {
+	it('should not modify the passed-in options object', function (done) {
 		function foo() {}
 		const opts = { sandbox: { foo } };
 		const FindProxyForURL = pac(
@@ -36,14 +36,14 @@ describe('FindProxyForURL', function() {
 			opts
 		);
 		assert.deepEqual(opts, { sandbox: { foo } });
-		FindProxyForURL('http://foo.com/', function(err, res) {
+		FindProxyForURL('http://foo.com/', function (err, res) {
 			if (err) return done(err);
 			assert.deepEqual('function', res);
 			done();
 		});
 	});
 
-	it('should prevent untrusted code from escaping the sandbox', function() {
+	it('should prevent untrusted code from escaping the sandbox', function () {
 		let err;
 		try {
 			pac(
@@ -51,7 +51,7 @@ describe('FindProxyForURL', function() {
 				function FindProxyForURL(url, host) {
 				return "DIRECT";
 				}
-				
+
 				// But also run arbitrary code:
 				var f = this.constructor.constructor(\`
 				process.exit(1);
@@ -60,13 +60,13 @@ describe('FindProxyForURL', function() {
 				f();
 				`
 			);
-		} catch(_err) {
+		} catch (_err) {
 			err = _err;
 		}
-		assert.strictEqual(err.message, 'process is not defined')
+		assert.strictEqual(err.message, 'process is not defined');
 	});
 
-	describe('official docs Example #1', function() {
+	describe('official docs Example #1', function () {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL(url, host) {' +
 				'  if (isPlainHostName(host) ||' +
@@ -77,8 +77,8 @@ describe('FindProxyForURL', function() {
 				'}'
 		);
 
-		it('should return "DIRECT" for "localhost"', function(done) {
-			FindProxyForURL('http://localhost/hello', 'localhost', function(
+		it('should return "DIRECT" for "localhost"', function (done) {
+			FindProxyForURL('http://localhost/hello', 'localhost', function (
 				err,
 				res
 			) {
@@ -88,11 +88,11 @@ describe('FindProxyForURL', function() {
 			});
 		});
 
-		it('should return "DIRECT" for "foo.netscape.com"', function(done) {
+		it('should return "DIRECT" for "foo.netscape.com"', function (done) {
 			FindProxyForURL(
 				'http://foo.netscape.com/',
 				'foo.netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('DIRECT', res);
 					done();
@@ -100,8 +100,8 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY …" for "google.com"', function(done) {
-			FindProxyForURL('http://google.com/t', 'google.com', function(
+		it('should return "PROXY …" for "google.com"', function (done) {
+			FindProxyForURL('http://google.com/t', 'google.com', function (
 				err,
 				res
 			) {
@@ -112,7 +112,7 @@ describe('FindProxyForURL', function() {
 		});
 	});
 
-	describe('official docs Example #1b', function() {
+	describe('official docs Example #1b', function () {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL(url, host)' +
 				'{' +
@@ -126,8 +126,8 @@ describe('FindProxyForURL', function() {
 				'}'
 		);
 
-		it('should return "DIRECT" for "localhost"', function(done) {
-			FindProxyForURL('http://localhost/hello', 'localhost', function(
+		it('should return "DIRECT" for "localhost"', function (done) {
+			FindProxyForURL('http://localhost/hello', 'localhost', function (
 				err,
 				res
 			) {
@@ -137,11 +137,11 @@ describe('FindProxyForURL', function() {
 			});
 		});
 
-		it('should return "DIRECT" for "foo.netscape.com"', function(done) {
+		it('should return "DIRECT" for "foo.netscape.com"', function (done) {
 			FindProxyForURL(
 				'http://foo.netscape.com/',
 				'foo.netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('DIRECT', res);
 					done();
@@ -149,11 +149,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY …" for "www.netscape.com"', function(done) {
+		it('should return "PROXY …" for "www.netscape.com"', function (done) {
 			FindProxyForURL(
 				'http://www.netscape.com/',
 				'www.netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal(
 						'PROXY w3proxy.netscape.com:8080; DIRECT',
@@ -164,11 +164,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY …" for "merchant.netscape.com"', function(done) {
+		it('should return "PROXY …" for "merchant.netscape.com"', function (done) {
 			FindProxyForURL(
 				'http://merchant.netscape.com/',
 				'merchant.netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal(
 						'PROXY w3proxy.netscape.com:8080; DIRECT',
@@ -180,7 +180,7 @@ describe('FindProxyForURL', function() {
 		});
 	});
 
-	describe('official docs Example #5', function() {
+	describe('official docs Example #5', function () {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL(url, host)' +
 				'{' +
@@ -203,11 +203,11 @@ describe('FindProxyForURL', function() {
 				'}'
 		);
 
-		it('should return "DIRECT" for "foo://netscape.com"', function(done) {
+		it('should return "DIRECT" for "foo://netscape.com"', function (done) {
 			FindProxyForURL(
 				'foo://netscape.com/hello',
 				'netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('DIRECT', res);
 					done();
@@ -215,11 +215,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY http…" for "http://netscape.com"', function(done) {
+		it('should return "PROXY http…" for "http://netscape.com"', function (done) {
 			FindProxyForURL(
 				'http://netscape.com/hello',
 				'netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('PROXY http-proxy.mydomain.com:8080', res);
 					done();
@@ -227,11 +227,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY ftp…" for "ftp://netscape.com"', function(done) {
+		it('should return "PROXY ftp…" for "ftp://netscape.com"', function (done) {
 			FindProxyForURL(
 				'ftp://netscape.com/hello',
 				'netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('PROXY ftp-proxy.mydomain.com:8080', res);
 					done();
@@ -239,11 +239,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY gopher…" for "gopher://netscape.com"', function(done) {
+		it('should return "PROXY gopher…" for "gopher://netscape.com"', function (done) {
 			FindProxyForURL(
 				'gopher://netscape.com/hello',
 				'netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('PROXY gopher-proxy.mydomain.com:8080', res);
 					done();
@@ -251,11 +251,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY security…" for "https://netscape.com"', function(done) {
+		it('should return "PROXY security…" for "https://netscape.com"', function (done) {
 			FindProxyForURL(
 				'https://netscape.com/hello',
 				'netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('PROXY security-proxy.mydomain.com:8080', res);
 					done();
@@ -263,11 +263,11 @@ describe('FindProxyForURL', function() {
 			);
 		});
 
-		it('should return "PROXY security…" for "snews://netscape.com"', function(done) {
+		it('should return "PROXY security…" for "snews://netscape.com"', function (done) {
 			FindProxyForURL(
 				'snews://netscape.com/hello',
 				'netscape.com',
-				function(err, res) {
+				function (err, res) {
 					if (err) return done(err);
 					assert.equal('PROXY security-proxy.mydomain.com:8080', res);
 					done();
@@ -276,7 +276,7 @@ describe('FindProxyForURL', function() {
 		});
 	});
 
-	describe('GitHub issue #3', function() {
+	describe('GitHub issue #3', function () {
 		var FindProxyForURL = pac(
 			'function FindProxyForURL(url, host) {\n' +
 				'    if (isHostInAnySubnet(host, ["10.1.2.0", "10.1.3.0"], "255.255.255.0")) {\n' +
@@ -302,8 +302,8 @@ describe('FindProxyForURL', function() {
 				'}\n'
 		);
 
-		it('should return "HTTPS proxy.example.com" for "http://10.1.2.3/bar.html"', function(done) {
-			FindProxyForURL('http://10.1.2.3/bar.html', '10.1.2.3', function(
+		it('should return "HTTPS proxy.example.com" for "http://10.1.2.3/bar.html"', function (done) {
+			FindProxyForURL('http://10.1.2.3/bar.html', '10.1.2.3', function (
 				err,
 				res
 			) {
@@ -313,8 +313,8 @@ describe('FindProxyForURL', function() {
 			});
 		});
 
-		it('should return "DIRECT" for "http://foo.com/bar.html"', function(done) {
-			FindProxyForURL('http://foo.com/bar.html', 'foo.com', function(
+		it('should return "DIRECT" for "http://foo.com/bar.html"', function (done) {
+			FindProxyForURL('http://foo.com/bar.html', 'foo.com', function (
 				err,
 				res
 			) {
@@ -327,49 +327,53 @@ describe('FindProxyForURL', function() {
 
 	// https://github.com/breakwa11/gfw_whitelist
 	// https://github.com/TooTallNate/node-pac-resolver/issues/20
-	describe('GitHub issue #20', function() {
+	describe('GitHub issue #20', function () {
 		const FindProxyForURL = pac(
 			readFileSync(resolve(__dirname, 'fixtures/gfw_whitelist.pac'))
 		);
 
-		it('should return "DIRECT" for "https://example.cn"', function(done) {
-			FindProxyForURL('https://example.cn/').then(res => {
+		it('should return "DIRECT" for "https://example.cn"', function (done) {
+			FindProxyForURL('https://example.cn/').then((res) => {
 				assert.equal('DIRECT;', res);
 				done();
 			}, done);
 		});
 
-		it('should return "SOCKS5 127.0.0.1:1080;" for "https://example.com"', function(done) {
-			FindProxyForURL('https://example.com/').then(res => {
+		it('should return "SOCKS5 127.0.0.1:1080;" for "https://example.com"', function (done) {
+			FindProxyForURL('https://example.com/').then((res) => {
 				assert.equal('SOCKS5 127.0.0.1:1080;', res);
 				done();
 			}, done);
 		});
 	});
 
-	describe('`filename` option', function() {
+	describe('`filename` option', function () {
 		const code = String(function FindProxyForURL() {
 			throw new Error('fail');
 		});
 
-		it('should include `proxy.pac` in stack traces by default', function(done) {
+		it('should include `proxy.pac` in stack traces by default', function (done) {
 			const FindProxyForURL = pac(code);
-			FindProxyForURL('https://example.com/').catch(err => {
+			FindProxyForURL('https://example.com/').catch((err) => {
 				assert(err);
 				assert.equal(err.message, 'fail');
-				assert(err.stack.indexOf('at FindProxyForURL (proxy.pac:') !== -1);
+				assert(
+					err.stack.indexOf('at FindProxyForURL (proxy.pac:') !== -1
+				);
 				done();
 			});
 		});
 
-		it('should include `fail.pac` in stack traces by option', function(done) {
+		it('should include `fail.pac` in stack traces by option', function (done) {
 			const FindProxyForURL = pac(code, {
-				filename: 'fail.pac'
+				filename: 'fail.pac',
 			});
-			FindProxyForURL('https://example.com/').catch(err => {
+			FindProxyForURL('https://example.com/').catch((err) => {
 				assert(err);
 				assert.equal(err.message, 'fail');
-				assert(err.stack.indexOf('at FindProxyForURL (fail.pac:') !== -1);
+				assert(
+					err.stack.indexOf('at FindProxyForURL (fail.pac:') !== -1
+				);
 				done();
 			});
 		});
