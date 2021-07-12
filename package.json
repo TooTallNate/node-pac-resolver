@@ -42,7 +42,7 @@
     "url": "git://github.com/TooTallNate/node-pac-resolver.git"
   },
   "engines": {
-    "node": ">= 6"
+    "node": ">= 8"
   },
   "keywords": [
     "pac",
