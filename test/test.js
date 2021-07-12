@@ -28,7 +28,7 @@ describe('FindProxyForURL', function() {
 		});
 	});
 
-	it('should not modify the passed-in options object ', function(done) {
+	it('should not modify the passed-in options object', function(done) {
 		function foo() {}
 		const opts = { sandbox: { foo } };
 		const FindProxyForURL = pac(
@@ -41,6 +41,29 @@ describe('FindProxyForURL', function() {
 			assert.deepEqual('function', res);
 			done();
 		});
+	});
+
+	it('should prevent untrusted code from escaping the sandbox', function() {
+		let err;
+		try {
+			pac(
+				`// Real PAC config:
+				function FindProxyForURL(url, host) {
+				return "DIRECT";
+				}
+				
+				// But also run arbitrary code:
+				var f = this.constructor.constructor(\`
+				process.exit(1);
+				\`);
+
+				f();
+				`
+			);
+		} catch(_err) {
+			err = _err;
+		}
+		assert.strictEqual(err.message, 'process is not defined')
 	});
 
 	describe('official docs Example #1', function() {

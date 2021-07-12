@@ -48,7 +48,7 @@ function createPacResolver(
 	const names = Object.keys(sandbox).filter(k => isAsyncFunction(sandbox[k]));
 
 	// Compile the JS `FindProxyForURL()` function into an async function.
-	const resolver = compile<(url: string, host: string) => Promise<string>>(
+	const resolver = compile<string, [url: string, host: string]>(
 		str,
 		'FindProxyForURL',
 		names,
