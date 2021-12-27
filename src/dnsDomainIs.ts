@@ -20,7 +20,7 @@
  * @return {Boolean} true iff the domain of the hostname matches.
  */
 export default function dnsDomainIs(host: string, domain: string): boolean {
-	host = String(host);
-	domain = String(domain);
+	host = String(host).toLowerCase();
+	domain = String(domain).toLowerCase();
 	return host.substr(domain.length * -1) === domain;
 }
