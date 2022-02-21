@@ -1,5 +1,5 @@
 import ip from 'ip';
-import net from 'net';
+import net, {AddressInfo} from 'net';
 
 /**
  * Returns the IP address of the host that the Navigator is running on, as
@@ -20,7 +20,7 @@ export default async function myIpAddress(): Promise<string> {
 		// 8.8.8.8:53 is "Google Public DNS":
 		// https://developers.google.com/speed/public-dns/
 		const socket = net.connect({ host: '8.8.8.8', port: 53 });
-		const onError = (err: Error) => {
+		const onError = () => {
 			// if we fail to access Google DNS (as in firewall blocks access),
 			// fallback to querying IP locally
 			resolve(ip.address());
@@ -32,8 +32,8 @@ export default async function myIpAddress(): Promise<string> {
 			socket.destroy();
 			if (typeof addr === 'string') {
 				resolve(addr);
-			} else if (addr.address) {
-				resolve(addr.address);
+			} else if ((addr as AddressInfo).address) {
+				resolve((addr as AddressInfo).address);
 			} else {
 				reject(new Error('Expected a `string`'));
 			}
