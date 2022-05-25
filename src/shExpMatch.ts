@@ -21,7 +21,7 @@
  */
 
 export default function shExpMatch(str: string, shexp: string): boolean {
-	var re = toRegExp(shexp);
+	const re = toRegExp(shexp);
 	return re.test(str);
 }
 
@@ -36,5 +36,5 @@ function toRegExp(str: string): RegExp {
 		.replace(/\./g, '\\.')
 		.replace(/\?/g, '.')
 		.replace(/\*/g, '.*');
-	return new RegExp('^' + str + '$');
+	return new RegExp(`^${str}$`);
 }

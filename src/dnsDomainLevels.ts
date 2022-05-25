@@ -15,8 +15,8 @@
  * @return {Number} number of domain levels
  */
 export default function dnsDomainLevels(host: string): number {
-	var match = String(host).match(/\./g);
-	var levels = 0;
+	const match = String(host).match(/\./g);
+	let levels = 0;
 	if (match) {
 		levels = match.length;
 	}

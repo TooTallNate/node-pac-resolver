@@ -41,32 +41,31 @@
  */
 
 export default function timeRange(): boolean {
-	var args = Array.prototype.slice.call(arguments),
-		lastArg = args.pop(),
-		useGMTzone = lastArg == 'GMT',
-		currentDate = new Date();
+	// eslint-disable-next-line prefer-rest-params
+	const args = Array.prototype.slice.call(arguments);
+	const lastArg = args.pop();
+	const useGMTzone = lastArg === 'GMT';
+	const currentDate = new Date();
 
 	if (!useGMTzone) {
 		args.push(lastArg);
 	}
 
-	var noOfArgs = args.length,
-		result = false,
-		numericArgs = args.map(function (n) {
-			return parseInt(n);
-		});
+	const noOfArgs = args.length;
+	let result = false;
+	let numericArgs = args.map((n) => parseInt(n, 10));
 
 	// timeRange(hour)
-	if (noOfArgs == 1) {
-		result = getCurrentHour(useGMTzone, currentDate) == numericArgs[0];
+	if (noOfArgs === 1) {
+		result = getCurrentHour(useGMTzone, currentDate) === numericArgs[0];
 
 		// timeRange(hour1, hour2)
-	} else if (noOfArgs == 2) {
-		var currentHour = getCurrentHour(useGMTzone, currentDate);
+	} else if (noOfArgs === 2) {
+		const currentHour = getCurrentHour(useGMTzone, currentDate);
 		result = numericArgs[0] <= currentHour && currentHour < numericArgs[1];
 
 		// timeRange(hour1, min1, hour2, min2)
-	} else if (noOfArgs == 4) {
+	} else if (noOfArgs === 4) {
 		result = valueInRange(
 			secondsElapsedToday(numericArgs[0], numericArgs[1], 0),
 			secondsElapsedToday(
@@ -78,7 +77,7 @@ export default function timeRange(): boolean {
 		);
 
 		// timeRange(hour1, min1, sec1, hour2, min2, sec2)
-	} else if (noOfArgs == 6) {
+	} else if (noOfArgs === 6) {
 		result = valueInRange(
 			secondsElapsedToday(numericArgs[0], numericArgs[1], numericArgs[2]),
 			secondsElapsedToday(

@@ -1,5 +1,5 @@
-import { GMT } from './index';
 import { LookupAddress, LookupOptions, lookup } from 'dns';
+import { GMT } from './index';
 
 export function dnsLookup(
 	host: string,

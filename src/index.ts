@@ -57,6 +57,7 @@ function createPacResolver(
 		opts
 	);
 
+	/* eslint-disable @typescript-eslint/naming-convention, no-redeclare */
 	function FindProxyForURL(url: string, host?: string): Promise<string>;
 	function FindProxyForURL(
 		url: string,
@@ -110,6 +111,7 @@ function createPacResolver(
 	return FindProxyForURL;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace createPacResolver {
 	export type GMT = 'GMT';
 	export type Hour =
@@ -189,7 +191,7 @@ namespace createPacResolver {
 	}
 	export type FindProxyForURL = ReturnType<typeof createPacResolver>;
 	export const sandbox: Readonly<Context> = Object.freeze({
-		alert: (message: string = '') => console.log('%s', message),
+		alert: (message = '') => console.log('%s', message),
 		dateRange,
 		dnsDomainIs,
 		dnsDomainLevels,

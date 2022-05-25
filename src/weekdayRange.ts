@@ -70,19 +70,18 @@ export default function weekdayRange(
 	}
 
 	let todaysDay = getTodaysDay(useGMTzone);
-	let result = false;
+	let result: boolean;
 
 	if (wd2Index < 0) {
-		result = todaysDay == wd1Index;
+		result = todaysDay === wd1Index;
+	} else if (wd1Index <= wd2Index) {
+		result = valueInRange(wd1Index, todaysDay, wd2Index);
 	} else {
-		if (wd1Index <= wd2Index) {
-			result = valueInRange(wd1Index, todaysDay, wd2Index);
-		} else {
-			result =
-				valueInRange(wd1Index, todaysDay, 6) ||
-				valueInRange(0, todaysDay, wd2Index);
-		}
+		result =
+			valueInRange(wd1Index, todaysDay, 6) ||
+			valueInRange(0, todaysDay, wd2Index);
 	}
+
 	return result;
 }
 
