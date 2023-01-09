@@ -43,6 +43,24 @@ describe('FindProxyForURL', function () {
 		});
 	});
 
+	it('can override function', function (done) {
+		function myIpAddress() {
+			return '10.10.10.10';
+		}
+
+		const opts = { sandbox: { myIpAddress } };
+		const FindProxyForURL = pac(
+			'function FindProxyForURL (url, host) { return myIpAddress(); }',
+			opts
+		);
+		assert.deepEqual(opts, { sandbox: { myIpAddress } });
+		FindProxyForURL('http://foo.com/', function (err, res) {
+			if (err) return done(err);
+			assert.deepEqual('10.10.10.10', res);
+			done();
+		});
+	});
+
 	it('should prevent untrusted code from escaping the sandbox', function () {
 		let err;
 		try {
